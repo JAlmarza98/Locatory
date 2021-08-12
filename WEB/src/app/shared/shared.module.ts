@@ -6,21 +6,9 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 
-
-
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent
-  ],
-  exports:[
-    HeaderComponent,
-    SidebarComponent,
-    FooterComponent
-  ],
-  imports: [
-    CommonModule
-  ]
+  declarations: [HeaderComponent, SidebarComponent, FooterComponent],
+  exports: [HeaderComponent, SidebarComponent, FooterComponent],
+  imports: [CommonModule],
 })
-export class SharedModule { }
+export class SharedModule {}

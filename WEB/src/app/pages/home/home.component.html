@@ -1,25 +1,16 @@
 <div id="main-wrapper">
-  <app-header></app-header>
-  <app-sidebar></app-sidebar>
+  <app-header (openCategory)="showSidebar($event)"></app-header>
+  <app-sidebar class="float-end" *ngIf="sidebar"></app-sidebar>
   <div class="page-wrapper">
-    <div class="container-fluid">
-      <!-- Sistema de rutas -->
-      <router-outlet></router-outlet>
-
-      <!--
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-            </div>
-          </div>
-        </div>
-      </div>
-      -->
-
-    </div>
-
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="16"
+      [disableDefaultUI]="true"
+      [clickableIcons]="false"
+    >
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
     <app-footer></app-footer>
-
   </div>
 </div>
