@@ -1,0 +1,28 @@
+.l-navbar{
+  background-color: #242830;
+  height: 100vh;
+  width: fit-content;
+  display: flex;
+  flex-direction: column
+}
+
+.nav-item{
+  color: #eff1ec;
+  display:flex;
+  flex-direction:row;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size:large;
+  border-bottom: 1px solid #7e8585;
+  cursor: pointer;
+}
+
+.nav-icon{
+  margin-right: 20px;
+}
+
+.active{
+  color: #7e8585 !important;
+}
