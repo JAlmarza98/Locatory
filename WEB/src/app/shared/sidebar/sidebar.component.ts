@@ -4,6 +4,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
 
 import { CargarCategoria, Categoria, ICategoria } from 'src/app/models';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewCategoryComponent } from 'src/app/components/modals/new-category/new-category.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,6 +13,7 @@ import { CargarCategoria, Categoria, ICategoria } from 'src/app/models';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
+  uid!: string;
   categories: Categoria[];
   totalPages: number;
   currentPage: number;
@@ -18,14 +21,13 @@ export class SidebarComponent implements OnInit {
   newCategory: ICategoria = {
     status: true,
     color: '',
-    user: this.userService.uid,
     name: '',
     description: '',
   };
 
   constructor(
     private categoryService: CategoryService,
-    private userService: UserService
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -55,6 +57,25 @@ export class SidebarComponent implements OnInit {
   }
 
   openNewCat() {
-    console.log('nueva categoria');
+    this.modalService
+      .open(NewCategoryComponent, {
+        backdrop: 'static',
+        size: 'sm',
+        keyboard: false,
+        centered: true,
+        scrollable: false,
+      })
+      .result.then((result: ICategoria) => {
+        if (result as ICategoria) {
+          this.newCategory.color = result.color;
+          this.newCategory.name = result.name;
+          this.newCategory.description = result.description;
+
+          console.log(this.newCategory);
+          //TODO: llamar al servicio = notofocation service
+        } else {
+          //TODO: notification service
+        }
+      });
   }
 }

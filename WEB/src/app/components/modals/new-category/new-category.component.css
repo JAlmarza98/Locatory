@@ -1,0 +1,18 @@
+.modal-header {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-body {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-close {
+  cursor: pointer;
+}
+
+.modal-footer {
+  background-color: #242830;
+  color: white;
+}

@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Nueva categoría</h4>
+  <div class="modal-close p-1 mr-2" (click)="close()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <form id="newCategoryForm" autocomplete="off" [formGroup]="newCategoryForm">
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input
+        id="name"
+        class="form-control mb-3"
+        formControlName="name"
+        placeholder="Nombre ..."
+        name="name"
+        type="text"
+      />
+
+      <label for="description">Descripción</label>
+      <textarea
+        name="desciption mb-4"
+        id="descripcion"
+        formControlName="description"
+        rows="10"
+        cols="34"
+      >
+        Descripción ...
+      </textarea>
+
+      <label for="color">Color</label>
+      <input
+        id="color"
+        formControlName="color"
+        class="form-control"
+        name="color"
+        type="color"
+      />
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-light" (click)="close()">Cancelar</button>
+  <button class="btn btn-light" (click)="createCategory()">
+    Crear categoría
+  </button>
+</div>

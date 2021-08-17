@@ -10,9 +10,9 @@ export class Categoria {
 }
 
 export interface ICategoria {
-  status: boolean;
+  status?: boolean;
   color: string;
-  user: string;
+  user?: string;
   name: string;
   description: string;
   id?: string;
