@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
+import { ICategoria } from 'src/app/models';
 
 const url = environment.base_url;
 
@@ -25,5 +26,9 @@ export class CategoryService {
 
   getUserCategories() {
     return this.http.get(`${url}/categories`, this.headers);
+  }
+
+  newCategory(category: ICategoria) {
+    return this.http.post(`${url}/categories`, category, this.headers);
   }
 }

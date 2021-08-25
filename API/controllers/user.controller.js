@@ -48,22 +48,13 @@ const userGet = async (req, res) => {
 }
 
 const getYourData = async (req, res) => {
-
-    const { id } = req.params;
     const userAuthID = req.user_auth._id;
 
-    if (id != userAuthID) {
-        res.status(401).json({
-            msg: "unicamente puedes obtener los datos de tu usuario"
-        })
-    } else {
+    const me = await User.findById(userAuthID);
 
-        const user = await User.findById(id);
-
-        res.json({
-            user
-        });
-    }
+    res.json({
+        me
+    });
 
 }
 

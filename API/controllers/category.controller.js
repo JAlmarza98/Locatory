@@ -47,7 +47,8 @@ const getCategory = async (req, res) => {
         page,
         categories_this_page,
         total_categories,
-        categories, uid
+        categories,
+        uid
     })
 
 }
@@ -59,8 +60,20 @@ const postCategory = async (req, res) => {
 
     await category.save()
 
+    const [total_categories, categories] = await Promise.all([
+        Category.countDocuments({ user: new ObjectId(uid), status: true }),
+        Category.find({ user: new ObjectId(uid), status: true })
+            .populate('user', 'name', User)
+            .limit(10)
+    ]);
+
+    let categories_this_page = categories.length;
+
     res.json({
-        msg: 'categoria creada con exito'
+        page: 1,
+        categories_this_page,
+        total_categories,
+        categories
     })
 
 }

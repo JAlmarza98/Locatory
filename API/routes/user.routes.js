@@ -14,10 +14,8 @@ router.get('/', [
     adminRole
 ], userGet);
 
-router.get('/:id', [
-    jwtValidator,
-    check('id', 'No es un ID valido').isMongoId(),
-    check('id').custom(userID),
+router.get('/me', [
+    jwtValidator
 ], getYourData);
 
 router.post('/', [

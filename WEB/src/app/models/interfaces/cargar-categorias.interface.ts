@@ -5,5 +5,5 @@ export interface CargarCategoria {
   categories_this_page: number;
   total_categories: number;
   categories: Categoria[];
-  uid: string;
+  uid?: string;
 }

@@ -3,7 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
 import { UserService } from 'src/app/services/user.service';
 
-import { CargarCategoria, Categoria, ICategoria } from 'src/app/models';
+import {
+  CargarCategoria,
+  Categoria,
+  ICategoria,
+  Usuario,
+} from 'src/app/models';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewCategoryComponent } from 'src/app/components/modals/new-category/new-category.component';
 
@@ -40,6 +45,7 @@ export class SidebarComponent implements OnInit {
           response.categories_this_page
         );
         this.currentPage = response.page;
+        this.uid = response.uid;
       });
   }
 
@@ -60,7 +66,7 @@ export class SidebarComponent implements OnInit {
     this.modalService
       .open(NewCategoryComponent, {
         backdrop: 'static',
-        size: 'sm',
+        size: 'lg',
         keyboard: false,
         centered: true,
         scrollable: false,
@@ -70,12 +76,20 @@ export class SidebarComponent implements OnInit {
           this.newCategory.color = result.color;
           this.newCategory.name = result.name;
           this.newCategory.description = result.description;
+          this.newCategory.user = this.uid;
 
-          console.log(this.newCategory);
-          //TODO: llamar al servicio = notofocation service
-        } else {
-          //TODO: notification service
+          this.categoryService
+            .newCategory(this.newCategory)
+            .subscribe((response: CargarCategoria) => {
+              if (response as CargarCategoria) {
+                this.categories = response.categories;
+                // this.totalPages = response.totalPages;
+                // TODO: esto debe venir del servidor
+                this.currentPage = response.page;
+              }
+            });
         }
       });
+    //TODO: llamar al servicio = notifocation service
   }
 }

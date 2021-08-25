@@ -88,4 +88,12 @@ export class UserService {
       })
     );
   }
+
+  obtenerMiData() {
+    return this.http.get(`${url}/users/me`, {
+      headers: {
+        Authorization: this.token,
+      },
+    });
+  }
 }
