@@ -22,6 +22,10 @@
   cursor: pointer;
 }
 
+.nav-new-item{
+  height: 10%;
+}
+
 .cat-color {
   margin-right: 20px;
   border-radius: 50%;

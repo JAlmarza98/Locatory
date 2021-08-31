@@ -15,7 +15,6 @@ router.get('/', [
 
 router.post('/', [
     jwtValidator,
-    check('user').custom(userID),
     check('name', 'El nombre es obligarotio').not().isEmpty(),
     fieldsValidator
 ], postCategory);

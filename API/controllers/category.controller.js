@@ -6,8 +6,6 @@ const User = require('../models/user.model');
 const getCategory = async (req, res) => {
     const uid = req.user_auth._id;
 
-    console.log(req.user_auth);
-    console.log(typeof uid);
     const resPerPage = 10;
     const { page = 1 } = req.query
     let total_pages = 1;
@@ -38,23 +36,24 @@ const getCategory = async (req, res) => {
     }
 
     if (parseInt(page) > total_pages) {
-        return res.status(400).json({
+        return res.json({
             msg: `La pagina ${page} no existe, actualmente solo tenemos ${total_pages} paginas de usuarios`
         })
     }
 
     res.json({
         page,
+        total_pages,
         categories_this_page,
         total_categories,
-        categories,
-        uid
+        categories
     })
 
 }
 
 const postCategory = async (req, res) => {
 
+    const resPerPage = 10;
     const uid = req.user_auth._id;
     const category = new Category({ user: uid, ...req.body });
 
@@ -64,10 +63,16 @@ const postCategory = async (req, res) => {
         Category.countDocuments({ user: new ObjectId(uid), status: true }),
         Category.find({ user: new ObjectId(uid), status: true })
             .populate('user', 'name', User)
-            .limit(10)
+            .limit(resPerPage)
     ]);
 
     let categories_this_page = categories.length;
+
+    if (total_categories % resPerPage === 0) {
+        total_pages = total_categories / resPerPage;
+    } else {
+        total_pages = Math.trunc(total_categories / resPerPage) + 1;
+    }
 
     res.json({
         page: 1,

@@ -40,29 +40,12 @@ export class SidebarComponent implements OnInit {
       .getUserCategories()
       .subscribe((response: CargarCategoria) => {
         this.categories = response.categories;
-        this.totalPages = this.totalPageCalculator(
-          response.total_categories,
-          response.categories_this_page
-        );
+        this.totalPages = response.total_pages;
         this.currentPage = response.page;
-        this.uid = response.uid;
       });
   }
 
-  totalPageCalculator(
-    total_categories: number,
-    categories_this_page: number
-  ): number {
-    let response: number = total_categories / categories_this_page;
-
-    if (total_categories % categories_this_page != 0) {
-      response++;
-    }
-
-    return response;
-  }
-
-  openNewCat() {
+   openNewCat() {
     this.modalService
       .open(NewCategoryComponent, {
         backdrop: 'static',
@@ -83,8 +66,7 @@ export class SidebarComponent implements OnInit {
             .subscribe((response: CargarCategoria) => {
               if (response as CargarCategoria) {
                 this.categories = response.categories;
-                // this.totalPages = response.totalPages;
-                // TODO: esto debe venir del servidor
+                this.totalPages = response.total_pages;
                 this.currentPage = response.page;
               }
             });

@@ -7,35 +7,40 @@
 <div class="modal-body">
   <form id="newCategoryForm" autocomplete="off" [formGroup]="newCategoryForm">
     <div class="form-group">
-      <label for="name">Nombre</label>
-      <input
-        id="name"
-        class="form-control mb-3"
-        formControlName="name"
-        placeholder="Nombre ..."
-        name="name"
-        type="text"
-      />
+      <div class="row">
+        <div class="col-12">
+          <label for="name">Nombre</label>
+          <input
+            id="name"
+            class="form-control mb-3"
+            formControlName="name"
+            placeholder="Nombre ..."
+            name="name"
+            type="text"
+          />
+        </div>
+      </div>
 
-      <label for="description">Descripción</label>
-      <textarea
-        name="desciption mb-4"
-        id="descripcion"
-        formControlName="description"
-        rows="10"
-        cols="34"
-      >
-        Descripción ...
-      </textarea>
+      <div class="row">
+        <div class="col-12">
+          <label for="description">Descripción</label>
+          <textarea class="form-control mb-3" placeholder="Drescripción..." id="descripcion" name="desciption" formControlName="description" ></textarea>
+        </div>
+      </div>
 
-      <label for="color">Color</label>
-      <input
-        id="color"
-        formControlName="color"
-        class="form-control"
-        name="color"
-        type="color"
-      />
+      <div class="row">
+        <div class="col-12">
+          <label for="color">Color</label>
+          <input
+            id="color"
+            formControlName="color"
+            class="form-control"
+            name="color"
+            type="color"
+          />
+        </div>
+      </div>
+
     </div>
   </form>
 </div>
