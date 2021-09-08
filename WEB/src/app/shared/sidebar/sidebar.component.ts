@@ -19,9 +19,12 @@ import { NewCategoryComponent } from 'src/app/components/modals/new-category/new
 })
 export class SidebarComponent implements OnInit {
   uid!: string;
-  categories: Categoria[];
-  totalPages: number;
-  currentPage: number;
+  categories!: Categoria[];
+  totalPages!: number;
+  currentPage!: number;
+
+  prev: boolean;
+  next!: boolean;
 
   newCategory: ICategoria = {
     status: true,
@@ -42,10 +45,12 @@ export class SidebarComponent implements OnInit {
         this.categories = response.categories;
         this.totalPages = response.total_pages;
         this.currentPage = response.page;
+        this._hasPrev();
+        this._hasNext();
       });
   }
 
-   openNewCat() {
+  openNewCat(): void {
     this.modalService
       .open(NewCategoryComponent, {
         backdrop: 'static',
@@ -73,5 +78,52 @@ export class SidebarComponent implements OnInit {
         }
       });
     //TODO: llamar al servicio = notifocation service
+  }
+
+  previousPage(): void {
+    if (this.prev) {
+      this.categoryService
+        .getUserCategories(this.currentPage - 1)
+        .subscribe((response: CargarCategoria) => {
+          this.categories = response.categories;
+          this.totalPages = response.total_pages;
+          this.currentPage--;
+          this._hasPrev();
+          this._hasNext();
+        });
+    }
+  }
+
+  nextPage(): void {
+    if (this.next) {
+      this.categoryService
+        .getUserCategories(this.currentPage + 1)
+        .subscribe((response: CargarCategoria) => {
+          this.categories = response.categories;
+          this.totalPages = response.total_pages;
+          this.currentPage++;
+          this._hasPrev();
+          this._hasNext();
+        });
+    }
+  }
+
+  private _hasNext(): void {
+    if (this.currentPage === this.totalPages) {
+      this.next = false;
+    } else {
+      this.next = true;
+    }
+  }
+
+  private _hasPrev(): void {
+    console.log('_hasPrev');
+    console.log('currentPage', this.currentPage);
+    console.log('this.currentPage === 1', this.currentPage === 1);
+    if (this.currentPage === 1) {
+      this.prev = false;
+    } else {
+      this.prev = true;
+    }
   }
 }

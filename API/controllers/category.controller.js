@@ -6,7 +6,7 @@ const User = require('../models/user.model');
 const getCategory = async (req, res) => {
     const uid = req.user_auth._id;
 
-    const resPerPage = 10;
+    const resPerPage = 14;
     const { page = 1 } = req.query
     let total_pages = 1;
 
@@ -53,7 +53,7 @@ const getCategory = async (req, res) => {
 
 const postCategory = async (req, res) => {
 
-    const resPerPage = 10;
+    const resPerPage = 14;
     const uid = req.user_auth._id;
     const category = new Category({ user: uid, ...req.body });
 

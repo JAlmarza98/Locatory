@@ -24,8 +24,12 @@ export class CategoryService {
     };
   }
 
-  getUserCategories() {
-    return this.http.get(`${url}/categories`, this.headers);
+  getUserCategories(page?: number) {
+    if (page) {
+      return this.http.get(`${url}/categories?page=${page}`, this.headers);
+    } else {
+      return this.http.get(`${url}/categories`, this.headers);
+    }
   }
 
   newCategory(category: ICategoria) {

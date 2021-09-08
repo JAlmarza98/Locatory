@@ -1,6 +1,6 @@
 <div id="main-wrapper">
   <app-header (openCategory)="showSidebar($event)"></app-header>
-  <app-sidebar class="float-end" *ngIf="sidebar"></app-sidebar>
+  <app-sidebar class="float-end custom-sidebar" *ngIf="sidebar"></app-sidebar>
   <div class="page-wrapper">
     <agm-map
       [latitude]="lat"

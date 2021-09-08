@@ -4,7 +4,7 @@
     <div class="section">Nueva categoria</div>
   </div>
   <div class="page">
-    <div class="nav-new-item nav-item" *ngFor="let category of categories">
+    <div class="nav-item nav-category" *ngFor="let category of categories">
       <div
         class="cat-color"
         [ngStyle]="{ 'background-color': category.color }"
@@ -15,9 +15,17 @@
   <div class="nav-item text-center page-selector">
     <div class="container">
       <div class="row">
-        <div class="col-4"><i class="fas fa-chevron-left"></i></div>
+        <div class="col-4">
+          <i
+            class="fas fa-chevron-left"
+            (click)="previousPage()"
+            *ngIf="prev"
+          ></i>
+        </div>
         <div class="col-4">{{ currentPage }}/{{ totalPages }}</div>
-        <div class="col-4"><i class="fas fa-chevron-right"></i></div>
+        <div class="col-4">
+          <i class="fas fa-chevron-right" (click)="nextPage()" *ngIf="next"></i>
+        </div>
       </div>
     </div>
   </div>
