@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ category.name }}</h4>
+  <div class="modal-close p-1 mr-2" (click)="close()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row modal-data-container">
+    <div class="col-3">
+      <div
+        class="cat-color"
+        [ngStyle]="{ 'background-color': category.color }"
+      ></div>
+      <span class="data-color text-white-50">{{ category.color }}</span>
+    </div>
+    <div class="col-9 fs-1 text-center align-middle">{{ category.name }}</div>
+    <div class="col-12">{{ category.description }}</div>
+  </div>
+
+  <div class="row modal-data-container mt-5">
+    <div class="col-12 pins-viewer">
+      <table class="table" *ngIf="pins.length !== 0">
+        <thead>
+          <tr>
+            <th scope="col">Pin</th>
+            <th scope="col" colspan="2">Descripción</th>
+            <th scope="col">Terminado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ngFor="let pin of pins">
+            <th>{{ pin.name }}</th>
+            <td>{{ pin.description }}</td>
+            <td ngIf="!pin.finished"></td>
+            <td ngIf="pin.finished"><i class="fas fa-check"></i></td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="pins.length === 0">
+        <div class="w-100 empty-text text-center">
+          <p>
+            <i class="fas fa-exclamation-triangle"></i> No hay ningun pin
+            guadado en esta categoría
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="edit-btn mt-3 mb-3">
+    <button class="btn btn-light" (click)="editCategory()">
+      Editar categoría
+    </button>
+  </div>
+</div>

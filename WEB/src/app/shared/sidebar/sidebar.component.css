@@ -14,7 +14,6 @@
   display: flex;
   flex-direction: row;
   padding-left: 50px;
-  padding-right: 50px;
   padding-top: 15px;
   padding-bottom: 15px;
   font-size: large;
@@ -29,6 +28,7 @@
 .cat-color {
   margin-right: 20px;
   border-radius: 50%;
+  border: 3px solid white;
   width: 26px;
   height: 26px;
 }
@@ -44,5 +44,21 @@
   height: 81vh;
 }
 .page-selector {
+  padding-left: 0px;
   border-top: 1px solid #7e8585;
+}
+
+@media (max-width: 600px) {
+  .nav-category {
+    padding-bottom: 10px;
+  }
+
+  .l-navbar {
+    height: 92vh;
+  }
+
+  .nav-item {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }

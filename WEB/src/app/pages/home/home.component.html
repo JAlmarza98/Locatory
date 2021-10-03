@@ -1,6 +1,6 @@
 <div id="main-wrapper">
   <app-header (openCategory)="showSidebar($event)"></app-header>
-  <app-sidebar class="float-end custom-sidebar" *ngIf="sidebar"></app-sidebar>
+  <app-sidebar class="float-end assidenav" *ngIf="sidebar"></app-sidebar>
   <div class="page-wrapper">
     <agm-map
       [latitude]="lat"
@@ -11,6 +11,7 @@
     >
       <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
     </agm-map>
-    <app-footer></app-footer>
+    <!-- TODO: fix z-index for footer -->
+    <!-- <app-footer class="f-nav"></app-footer> -->
   </div>
 </div>

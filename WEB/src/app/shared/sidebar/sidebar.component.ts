@@ -1,16 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { CargarCategoria, Categoria, ICategoria } from 'src/app/models';
 
 import { CategoryService } from 'src/app/services/category.service';
-import { UserService } from 'src/app/services/user.service';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import {
-  CargarCategoria,
-  Categoria,
-  ICategoria,
-  Usuario,
-} from 'src/app/models';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { NewCategoryComponent } from 'src/app/components/modals/new-category/new-category.component';
+  NewCategoryComponent,
+  ShowCategoryDataComponent,
+} from 'src/app/components/modals';
 
 @Component({
   selector: 'app-sidebar',
@@ -78,6 +76,18 @@ export class SidebarComponent implements OnInit {
         }
       });
     //TODO: llamar al servicio = notifocation service
+  }
+
+  editCat(category: ICategoria): void {
+    const modalDialog = this.modalService.open(ShowCategoryDataComponent, {
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false,
+      centered: true,
+      scrollable: false,
+    });
+
+    modalDialog.componentInstance.category = category;
   }
 
   previousPage(): void {

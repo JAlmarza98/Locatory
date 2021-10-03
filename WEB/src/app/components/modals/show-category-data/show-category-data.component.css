@@ -1,0 +1,81 @@
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 20px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  border-radius: 20px;
+}
+
+.modal-header {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-body {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-close {
+  cursor: pointer;
+}
+
+.modal-footer {
+  background-color: #242830;
+  color: white;
+}
+
+.cat-color {
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  border: 3px solid white;
+  margin: auto;
+}
+
+.data-color {
+  text-align: center;
+  font-size: 11px;
+}
+
+.modal-data-container {
+  width: 80%;
+  margin: auto;
+}
+
+.table {
+  color: white;
+}
+
+.edit-btn {
+  text-align: center;
+}
+
+.pins-viewer {
+  overflow: auto;
+  min-height: 190px;
+  max-height: 298px;
+}
+
+.empty-text {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
