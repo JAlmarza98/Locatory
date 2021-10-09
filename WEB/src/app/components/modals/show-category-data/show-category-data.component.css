@@ -25,6 +25,9 @@
   background-color: #242830;
   color: white;
 }
+.modal-content {
+  background-color: #242830;
+}
 
 .modal-body {
   background-color: #242830;
@@ -67,7 +70,8 @@
 }
 
 .pins-viewer {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
   min-height: 190px;
   max-height: 298px;
 }

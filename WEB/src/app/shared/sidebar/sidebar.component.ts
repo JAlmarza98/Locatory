@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CargarCategoria, Categoria, ICategoria } from 'src/app/models';
 
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryService } from 'src/app/services';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,6 +16,8 @@ import {
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
+  @Output() showPinsCollection = new EventEmitter<ICategoria>();
+
   uid!: string;
   categories!: Categoria[];
   totalPages!: number;
@@ -75,7 +77,6 @@ export class SidebarComponent implements OnInit {
             });
         }
       });
-    //TODO: llamar al servicio = notifocation service
   }
 
   editCat(category: ICategoria): void {
@@ -88,6 +89,10 @@ export class SidebarComponent implements OnInit {
     });
 
     modalDialog.componentInstance.category = category;
+  }
+
+  showPins(category: ICategoria): void {
+    this.showPinsCollection.emit(category);
   }
 
   previousPage(): void {
@@ -127,9 +132,6 @@ export class SidebarComponent implements OnInit {
   }
 
   private _hasPrev(): void {
-    console.log('_hasPrev');
-    console.log('currentPage', this.currentPage);
-    console.log('this.currentPage === 1', this.currentPage === 1);
     if (this.currentPage === 1) {
       this.prev = false;
     } else {

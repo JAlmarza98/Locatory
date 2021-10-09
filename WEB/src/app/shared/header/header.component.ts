@@ -6,8 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  @Output()
-  openCategory = new EventEmitter<boolean>();
+  @Output() openCategory = new EventEmitter<boolean>();
 
   open = false;
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services';
 
 import Swal from 'sweetalert2';
 
-import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

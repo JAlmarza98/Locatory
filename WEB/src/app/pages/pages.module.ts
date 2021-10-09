@@ -8,6 +8,7 @@ import { SharedModule } from '../shared/shared.module';
 
 //Componentes propios
 import { HomeComponent } from './home/home.component';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   declarations: [HomeComponent],
@@ -15,6 +16,7 @@ import { HomeComponent } from './home/home.component';
     CommonModule,
     AppRoutingModule,
     SharedModule,
+    ComponentsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBqyHk8xXu44wHyyK0BfP8HbcPgi6UlP6E',
     }),

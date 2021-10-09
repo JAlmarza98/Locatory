@@ -1,7 +1,12 @@
 <div id="main-wrapper">
   <app-header (openCategory)="showSidebar($event)"></app-header>
-  <app-sidebar class="float-end assidenav" *ngIf="sidebar"></app-sidebar>
+  <app-sidebar
+    class="float-end assidenav"
+    *ngIf="sidebar"
+    (showPinsCollection)="showPinsCollection($event)"
+  ></app-sidebar>
   <div class="page-wrapper">
+    <app-notification></app-notification>
     <agm-map
       [latitude]="lat"
       [longitude]="lng"

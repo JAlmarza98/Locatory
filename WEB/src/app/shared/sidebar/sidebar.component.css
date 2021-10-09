@@ -18,6 +18,9 @@
   padding-bottom: 15px;
   font-size: large;
   border-bottom: 1px solid #7e8585;
+}
+
+.pointer {
   cursor: pointer;
 }
 
@@ -43,9 +46,14 @@
 .page {
   height: 81vh;
 }
+
 .page-selector {
   padding-left: 0px;
   border-top: 1px solid #7e8585;
+}
+
+.page-arrow {
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {
