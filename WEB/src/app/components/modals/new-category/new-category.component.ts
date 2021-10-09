@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-new-category',
@@ -18,11 +18,11 @@ export class NewCategoryComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  close() {
+  close(): void {
     this.activeModal.close();
   }
 
-  createCategory() {
+  createCategory(): void {
     this.activeModal.close(this.newCategoryForm.value);
   }
 }

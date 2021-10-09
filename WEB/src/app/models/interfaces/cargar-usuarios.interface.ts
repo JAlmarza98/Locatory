@@ -1,8 +1,9 @@
-import { Usuario } from '../index';
+import {Usuario} from '../index';
 
 export interface CargarUsuario {
 
-  total_users:  number,
-  users:        Usuario[]
+  // eslint-disable-next-line camelcase
+  total_users: number;
+  users: Usuario[];
 
 }

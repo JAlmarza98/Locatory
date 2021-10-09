@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AgmCoreModule } from '@agm/core';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {AgmCoreModule} from '@agm/core';
 
-//Modulos propios
-import { AppRoutingModule } from '../app-routing.module';
-import { SharedModule } from '../shared/shared.module';
+// Modulos propios
+import {AppRoutingModule} from '../app-routing.module';
+import {SharedModule} from '../shared/shared.module';
 
-//Componentes propios
-import { HomeComponent } from './home/home.component';
-import { ComponentsModule } from '../components/components.module';
+// Componentes propios
+import {HomeComponent} from './home/home.component';
+import {ComponentsModule} from '../components/components.module';
 
 @NgModule({
   declarations: [HomeComponent],

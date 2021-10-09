@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-//Modulos de terceros
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// Modulos de terceros
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-//Modulos propios
-import { ComponentsModule } from '../components/components.module';
+// Modulos propios
+import {ComponentsModule} from '../components/components.module';
 
-//Componentes propios
-import { HeaderComponent } from './header/header.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { FooterComponent } from './footer/footer.component';
+// Componentes propios
+import {HeaderComponent} from './header/header.component';
+import {SidebarComponent} from './sidebar/sidebar.component';
+import {FooterComponent} from './footer/footer.component';
 
 @NgModule({
   declarations: [HeaderComponent, SidebarComponent, FooterComponent],

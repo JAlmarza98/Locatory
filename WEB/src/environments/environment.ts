@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  //url Produccion
-  //base_url: 'https://locatory1.herokuapp.com/api'
-  base_url: 'http://localhost:8080/api'
+  // url Produccion
+  // base_url: 'https://locatory1.herokuapp.com/api'
+  base_url: 'http://localhost:8080/api',
 };
 
 /*

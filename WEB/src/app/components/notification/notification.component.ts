@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Notification, NotificationTypeEnum } from 'src/app/models';
-import { NotificationService } from 'src/app/services';
+import {Component, OnInit} from '@angular/core';
+import {Subscription} from 'rxjs';
+import {Notification, NotificationTypeEnum} from 'src/app/models';
+import {NotificationService} from 'src/app/services';
 
 @Component({
   selector: 'app-notification',
@@ -11,24 +11,22 @@ import { NotificationService } from 'src/app/services';
 export class NotificationComponent implements OnInit {
   notifications: Notification[] = [];
   notificationType = NotificationTypeEnum;
-  private _subscription: Subscription;
+  private subscription: Subscription;
 
   constructor(private notificationService: NotificationService) {}
 
   ngOnInit(): void {
-    this._subscription = this.notificationService
-      .getObservable()
-      .subscribe((notification) => this._addNotification(notification));
+    this.subscription = this.notificationService
+        .getObservable()
+        .subscribe((notification) => this._addNotification(notification));
   }
 
   ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public close(notification: Notification): void {
-    this.notifications = this.notifications.filter(
-      (notif) => notif.id !== notification.id
-    );
+    this.notifications = this.notifications.filter((notif) => notif.id !== notification.id);
   }
 
   private _addNotification(notification: Notification): void {

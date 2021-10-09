@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CargarPins, ICategoria, IPin } from 'src/app/models';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import {Component, Input, OnInit} from '@angular/core';
+import {CargarPins, ICategoria, IPin} from 'src/app/models';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
-import { PinService } from 'src/app/services/pin.service';
+import {PinService} from 'src/app/services/pin.service';
 
 @Component({
   selector: 'app-show-category-data',
@@ -16,18 +16,16 @@ export class ShowCategoryDataComponent implements OnInit {
 
   constructor(
     private activeModal: NgbActiveModal,
-    private pinService: PinService
+    private pinService: PinService,
   ) {}
 
   ngOnInit(): void {
     this.pinService
-      .getPinsByCategory(this.category.id)
-      .subscribe((pins: CargarPins) => {
-        this.pins = pins.pins;
-      });
+        .getPinsByCategory(this.category.id)
+        .subscribe((pins: CargarPins) => this.pins = pins.pins);
   }
 
-  close() {
+  close(): void {
     this.activeModal.close();
   }
 

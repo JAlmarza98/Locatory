@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {
   CanActivate,
   ActivatedRouteSnapshot,
@@ -6,8 +6,8 @@ import {
   Router,
 } from '@angular/router';
 
-import { UserService } from '../services/user.service';
-import { tap } from 'rxjs/operators';
+import {UserService} from '../services/user.service';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -17,11 +17,11 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.userService.validarToken().pipe(
-      tap((isAuth) => {
-        if (!isAuth) {
-          this.router.navigateByUrl('/login');
-        }
-      })
+        tap((isAuth) => {
+          if (!isAuth) {
+            this.router.navigateByUrl('/login');
+          }
+        }),
     );
   }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ICategoria, IPin, CargarPins } from 'src/app/models';
-import { PinService } from 'src/app/services';
-import { NotificationService } from 'src/app/services';
+import {Component, OnInit} from '@angular/core';
+import {ICategoria, IPin, CargarPins} from 'src/app/models';
+import {PinService} from 'src/app/services';
+import {NotificationService} from 'src/app/services';
 
 @Component({
   selector: 'app-home',
@@ -15,36 +15,36 @@ export class HomeComponent implements OnInit {
 
   currentCategory!: ICategoria;
   pinsCollection!: IPin[];
-  total_pins!: number;
+  totalPins!: number;
 
   constructor(
     private pinService: PinService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {}
 
-  showSidebar(event: boolean) {
+  showSidebar(event: boolean): void {
     this.sidebar = event;
   }
 
-  showPinsCollection(category: ICategoria) {
+  showPinsCollection(category: ICategoria): void {
     this.currentCategory = category;
 
     this.pinService
-      .getPinsByCategory(category.id)
-      .subscribe((response: CargarPins) => {
-        if (response.total_pins !== 0) {
-          console.log(response);
-          this.total_pins = response.total_pins;
-          this.pinsCollection = response.pins;
-        } else {
-          this.notificationService.error(
-            'No hay marcadores',
-            'Actualmente no existen marcadores para esta colección.',
-            3000
-          );
-        }
-      });
+        .getPinsByCategory(category.id)
+        .subscribe((response: CargarPins) => {
+          if (response.total_pins !== 0) {
+            console.log(response);
+            this.totalPins = response.total_pins;
+            this.pinsCollection = response.pins;
+          } else {
+            this.notificationService.error(
+                'No hay marcadores',
+                'Actualmente no existen marcadores para esta colección.',
+                3000,
+            );
+          }
+        });
   }
 }

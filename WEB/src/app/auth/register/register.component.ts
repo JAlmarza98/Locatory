@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services';
+import {Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserService} from 'src/app/services';
 
 import Swal from 'sweetalert2';
 
@@ -14,49 +14,39 @@ export class RegisterComponent {
   public formSubmitted = false;
 
   public registerForm = this.fb.group(
-    {
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      password2: ['', [Validators.required, Validators.minLength(6)]],
-      role: ['USER_ROLE'],
-    },
-    {
-      validators: this.passwordsIguales('password', 'password2'),
-    }
+      {
+        name: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        password2: ['', [Validators.required, Validators.minLength(6)]],
+        role: ['USER_ROLE'],
+      },
+      {
+        validators: this.passwordsIguales('password', 'password2'),
+      },
   );
 
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   register() {
     this.formSubmitted = true;
 
     if (this.registerForm.invalid) {
-      return Swal.fire(
-        'Error',
-        'Los campos introducidos no son validos',
-        'error'
-      );
+      return Swal.fire('Error', 'Los campos introducidos no son validos', 'error');
     }
 
-    //Posteo
     this.userService.crearUsuario(this.registerForm.value).subscribe(
-      (resp) => {
-        Swal.fire(
-          'Enhorabuena',
-          'Su cuenta ha sido creada con exito',
-          'success'
-        );
-        this.router.navigateByUrl('/');
-      },
-      (err) => {
-        Swal.fire('Error', err.error.errors[0].msg, 'error');
-      }
-    );
+        (resp) => {
+          Swal.fire('Enhorabuena', 'Su cuenta ha sido creada con exito', 'success');
+          this.router.navigateByUrl('/');
+        },
+        (err) => {
+          Swal.fire('Error', err.error.errors[0].msg, 'error');
+        });
   }
 
   campoNoValido(campo: string): boolean {
@@ -86,7 +76,7 @@ export class RegisterComponent {
       if (pass1Control?.value === pass2Control?.value) {
         pass2Control?.setErrors(null);
       } else {
-        pass2Control?.setErrors({ noEsIgual: true });
+        pass2Control?.setErrors({noEsIgual: true});
       }
     };
   }
