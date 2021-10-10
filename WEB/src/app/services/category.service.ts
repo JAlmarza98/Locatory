@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from 'src/environments/environment';
-import {ICategoria} from 'src/app/models';
+import {Categoria, ICategoria} from 'src/app/models';
 
 const url = environment.base_url;
 
@@ -34,5 +34,9 @@ export class CategoryService {
 
   newCategory(category: ICategoria) {
     return this.http.post(`${url}/categories`, category, this.headers);
+  }
+
+  deleteCategory(category: Categoria) {
+    return this.http.delete(`${url}/categories/${category.id}`, this.headers);
   }
 }

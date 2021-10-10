@@ -1,8 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CargarPins, ICategoria, IPin} from 'src/app/models';
+import {CargarPins, ICategoria, IPin, ShowDataModalActions} from 'src/app/models';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-
-import {PinService} from 'src/app/services/pin.service';
+import {PinService} from 'src/app/services';
 
 @Component({
   selector: 'app-show-category-data',
@@ -11,8 +10,9 @@ import {PinService} from 'src/app/services/pin.service';
 })
 export class ShowCategoryDataComponent implements OnInit {
   @Input() category: ICategoria;
+  pins: IPin[] = [];
 
-  pins!: IPin[];
+  actions!: ShowDataModalActions;
 
   constructor(
     private activeModal: NgbActiveModal,
@@ -20,6 +20,15 @@ export class ShowCategoryDataComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.actions = {
+      id: this.category.id,
+      action: {
+        deleteCategory: false,
+        showPins: false,
+        editCategory: false,
+      },
+    };
+
     this.pinService
         .getPinsByCategory(this.category.id)
         .subscribe((pins: CargarPins) => this.pins = pins.pins);
@@ -29,5 +38,13 @@ export class ShowCategoryDataComponent implements OnInit {
     this.activeModal.close();
   }
 
-  editCategory(): void {}
+  editCategory(): void {
+    this.actions.action.editCategory = true;
+    this.activeModal.close(this.actions);
+  }
+
+  deleteCategory(): void {
+    this.actions.action.deleteCategory = true;
+    this.activeModal.close(this.actions);
+  }
 }

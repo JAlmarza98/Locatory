@@ -5,7 +5,7 @@ export class Categoria {
     public user: PopulateUser,
     public name: string,
     public description: string,
-    public id: string
+    public id: string,
   ) {}
 }
 
