@@ -76,6 +76,7 @@ const postCategory = async (req, res) => {
 
     res.json({
         page: 1,
+        total_pages,
         categories_this_page,
         total_categories,
         categories
@@ -97,15 +98,37 @@ const putCategory = async (req, res) => {
 }
 
 const deleteCategory = async (req, res) => {
-
     const { id } = req.params;
+    const uid = req.user_auth._id;
+
+    const resPerPage = 14;
+    const page = 1;
+    let total_pages = 1;
 
     await Category.findByIdAndUpdate(id, { status: false });
 
-    res.json({
-        msg: 'Categoria eliminada'
-    });
+    const [total_categories, categories] = await Promise.all([
+        Category.countDocuments({ user: new ObjectId(uid), status: true }),
+        Category.find({ user: new ObjectId(uid), status: true })
+            .populate('user', 'name', User)
+            .limit(resPerPage)
+    ]);
 
+    let categories_this_page = categories.length;
+
+    if (total_categories % resPerPage === 0) {
+        total_pages = total_categories / resPerPage;
+    } else {
+        total_pages = Math.trunc(total_categories / resPerPage) + 1;
+    }
+
+    res.json({
+        page: 1,
+        total_pages,
+        categories_this_page,
+        total_categories,
+        categories
+    })
 }
 
 
