@@ -29,15 +29,15 @@ export class HomeComponent implements OnInit {
     this.sidebar = event;
   }
 
-  newPin(event:any) {
-    const coords: { lat: number, lng: number } = event.coords;
-    console.log(coords);
+  // newPin(event:any) {
+  //   const coords: { lat: number, lng: number } = event.coords;
+  //   console.log(coords);
 
-    const newPin = new Pin('', {_id: '', name: ''}, true, coords.lat, coords.lng, false, '' );
+  //   // const newPin = new Pin('', {_id: '', name: ''}, true, coords.lat, coords.lng, false, '' );
 
-    this.pinsCollection.push(newPin);
-    console.log(this.pinsCollection);
-  }
+  //   this.pinsCollection.push(newPin);
+  //   console.log(this.pinsCollection);
+  // }
 
   showPinsCollection(category: ICategoria): void {
     this.currentCategory = category;

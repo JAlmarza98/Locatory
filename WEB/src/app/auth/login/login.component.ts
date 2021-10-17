@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/services';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {UserService} from 'src/app/services';
 
 import Swal from 'sweetalert2';
 
@@ -25,32 +25,30 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
   ) {}
 
   ngOnInit(): void {}
 
   login() {
     this.userService.login(this.loginForm.value).subscribe(
-      (resp) => {
-        if (this.loginForm.get('remember')?.value) {
-          localStorage.setItem('email', this.loginForm.get('email')?.value);
-          localStorage.setItem('remember', 'true');
-        } else {
-          localStorage.removeItem('email');
-          localStorage.removeItem('remember');
-        }
+        (resp) => {
+          if (this.loginForm.get('remember')?.value) {
+            localStorage.setItem('email', this.loginForm.get('email')?.value);
+            localStorage.setItem('remember', 'true');
+          } else {
+            localStorage.removeItem('email');
+            localStorage.removeItem('remember');
+          }
 
-        this.router.navigateByUrl('/');
-      },
-      (err) => {
-        console.log(err);
-        Swal.fire(
-          'Error',
-          'El correo o la contraseña introducidas no son correctas',
-          'error'
-        );
-      }
-    );
+          this.router.navigateByUrl('/');
+        },
+        (err) => {
+          console.log(err);
+          Swal.fire(
+              'Error',
+              'El correo o la contraseña introducidas no son correctas',
+              'error');
+        });
   }
 }

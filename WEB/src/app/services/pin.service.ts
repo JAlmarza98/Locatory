@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
+import {newPinForm} from 'src/app/models';
 
 const url = environment.base_url;
 
@@ -24,5 +25,9 @@ export class PinService {
 
   getPinsByCategory(categoryId: string) {
     return this.http.get(`${url}/api/pin/${categoryId}`, this.headers);
+  }
+
+  createNewPin(pinData: newPinForm) {
+    return this.http.post(`${url}/api/pin`, pinData, this.headers);
   }
 }

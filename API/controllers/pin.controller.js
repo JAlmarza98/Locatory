@@ -30,11 +30,26 @@ const getPin = async (req, res) => {
 const postPin = async (req, res) => {
 
     const pin = new Pin({ ...req.body });
+    const categoryID = req.body.category;
 
-    await pin.save()
+    await pin.save();
+    const category = await Category.findById(categoryID)
+
+    if (!category.status) {
+        return res.status(400).json({
+            msg: "La categoria selecionada no existe"
+        })
+    }
+
+    const [total_pins, pins] = await Promise.all([
+        Pin.countDocuments({ category: new ObjectId(category.id), status: true }),
+        Pin.find({ status: true, category: new ObjectId(category.id) })
+            .populate('category', 'name', Category)
+    ]);
 
     res.json({
-        msg: 'Pin creado con exito'
+        total_pins,
+        pins
     })
 }
 

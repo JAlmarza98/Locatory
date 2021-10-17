@@ -18,21 +18,32 @@
   </div>
 
   <div class="row modal-data-container mt-5">
-    <div class="col-12 pins-viewer">
+    <div class="col-12 pins-viewer mb-3">
       <table class="table" *ngIf="pins.length !== 0">
         <thead>
           <tr>
-            <th scope="col">Pin</th>
+            <th scope="col">Marcador</th>
             <th scope="col" colspan="2">Descripción</th>
             <th scope="col">Terminado</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr ngFor="let pin of pins">
-            <th>{{ pin.name }}</th>
-            <td>{{ pin.description }}</td>
-            <td ngIf="!pin.finished"></td>
-            <td ngIf="pin.finished"><i class="fas fa-check"></i></td>
+          <tr *ngFor="let pin of pins">
+            <td>{{ pin.name }}</td>
+            <td colspan="2">{{ pin.description }}</td>
+            <td *ngIf="!pin.finish"></td>
+            <td *ngIf="pin.finish">
+              <i class="fas fa-check"></i>
+            </td>
+            <td class="d-flex">
+              <button class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger ml-1">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -64,6 +75,14 @@
         </button>
       </div>
       <div class="col-6 container-delete">
+        <button
+          class="btn btn-outline-success float-end"
+          (click)="addPin()"
+          style="position: absolute"
+        >
+          <i class="fas fa-plus"></i>
+          Añadir marcador
+        </button>
         <button
           class="btn btn-outline-danger float-end btn-delete"
           (click)="deleteCategory()"

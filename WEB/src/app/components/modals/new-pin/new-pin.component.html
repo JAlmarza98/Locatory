@@ -1,11 +1,27 @@
 <div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">Nueva categoría</h4>
+  <h4 class="modal-title" id="modal-basic-title">Nuevo Marcador</h4>
   <div class="modal-close p-1 mr-2" (click)="close()">
     <i class="fas fa-times"></i>
   </div>
 </div>
 <div class="modal-body">
-  <form id="newCategoryForm" autocomplete="off" [formGroup]="newCategoryForm">
+  <div class="row">
+    <div class="col-12">
+      <agm-map
+        (mapClick)="setPin($event)"
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="16"
+        [disableDefaultUI]="true"
+      >
+        <agm-marker
+          [latitude]="coords.lat"
+          [longitude]="coords.lng"
+        ></agm-marker>
+      </agm-map>
+    </div>
+  </div>
+  <form id="newCategoryForm" autocomplete="off" [formGroup]="newPinForm">
     <div class="form-group">
       <div class="row">
         <div class="col-12">
@@ -33,26 +49,11 @@
           ></textarea>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-12">
-          <label for="color">Color</label>
-          <input
-            id="color"
-            formControlName="color"
-            class="form-control"
-            name="color"
-            type="color"
-          />
-        </div>
-      </div>
     </div>
   </form>
 </div>
 
 <div class="modal-footer">
   <button class="btn btn-outline-danger" (click)="close()">Cancelar</button>
-  <button class="btn btn-light" (click)="createCategory()">
-    Crear categoría
-  </button>
+  <button class="btn btn-light" (click)="createPin()">Crear marcador</button>
 </div>

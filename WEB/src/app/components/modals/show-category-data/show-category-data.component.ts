@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CargarPins, ICategoria, IPin, ShowDataModalActions} from 'src/app/models';
+import {CargarPins, ICategoria, IPin, ShowDataModalActions, newPinForm} from 'src/app/models';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {PinService} from 'src/app/services';
-import {ShareModalContainerComponent} from 'src/app/components/index';
+import {PinService, NotificationService} from 'src/app/services';
+import {NewPinComponent, ShareModalContainerComponent} from 'src/app/components';
 
 @Component({
   selector: 'app-show-category-data',
@@ -19,6 +19,7 @@ export class ShowCategoryDataComponent implements OnInit {
     private activeModal: NgbActiveModal,
     private pinService: PinService,
     private modalService: NgbModal,
+    private notificationService: NotificationService,
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +34,9 @@ export class ShowCategoryDataComponent implements OnInit {
 
     this.pinService
         .getPinsByCategory(this.category.id)
-        .subscribe((pins: CargarPins) => this.pins = pins.pins);
+        .subscribe((response: CargarPins) => {
+          this.pins = response.pins;
+        });
   }
 
   public close(): void {
@@ -53,6 +56,32 @@ export class ShowCategoryDataComponent implements OnInit {
   public deleteCategory(): void {
     this.actions.action.deleteCategory = true;
     this.activeModal.close(this.actions);
+  }
+
+  public addPin(): void {
+    const modalDialog = this.modalService.open(NewPinComponent, {
+      backdrop: 'static',
+      size: 'lg',
+      keyboard: false,
+      centered: true,
+      scrollable: false,
+    });
+
+    modalDialog.componentInstance.category = this.category;
+    modalDialog.result.then((result: newPinForm) => {
+      if (result.name) {
+        this.pinService.createNewPin(result).subscribe( (response: CargarPins) => {
+          this.pins = response.pins;
+          this.notificationService.success(
+              'Marcador Añadido',
+              'El marcador se ha añadido con existo a la colección');
+        });
+      } else {
+        this.notificationService.error(
+            'Error',
+            'El marcador no se ha podido añadir a la colección');
+      }
+    });
   }
 
   public shareCategory(): void {

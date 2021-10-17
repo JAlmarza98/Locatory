@@ -3,20 +3,20 @@ export class Pin {
     public name: string,
     public category: PopulateCategory,
     public status: boolean,
-    public lat: number,
-    public long: number,
+    public lat: string,
+    public long: string,
     public finished: boolean,
     public description: string,
   ) {}
 }
 
 export interface IPin {
-  name?: string;
+  name: string;
   category?: PopulateCategory;
   status?: boolean;
-  lat: number;
-  long: number;
-  finished: boolean;
+  lat: string;
+  long: string;
+  finished?: boolean;
   description?: string;
 }
 
