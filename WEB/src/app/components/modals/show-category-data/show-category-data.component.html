@@ -48,11 +48,30 @@
   </div>
 
   <div class="edit-btn mt-3 mb-3">
-    <button class="btn btn-light" (click)="editCategory()">
-      Editar categoría
-    </button>
-    <button class="btn btn-light" (click)="deleteCategory()">
-      Eliminar categoría
-    </button>
+    <div class="row">
+      <div class="col-6 d-flex flex-column">
+        <button class="btn btn-light m-1" (click)="editCategory()">
+          <i class="fas fa-edit"></i>
+          Editar categoría
+        </button>
+        <button class="btn btn-light m-1" (click)="showPins()">
+          <i class="fas fa-map-signs"></i>
+          Mostrar marcadores
+        </button>
+        <button class="btn btn-light m-1" (click)="shareCategory()">
+          <i class="fas fa-share-alt"></i>
+          Compartir categoría
+        </button>
+      </div>
+      <div class="col-6 container-delete">
+        <button
+          class="btn btn-outline-danger float-end btn-delete"
+          (click)="deleteCategory()"
+        >
+          <i class="fas fa-trash-alt"></i>
+          Eliminar categoría
+        </button>
+      </div>
+    </div>
   </div>
 </div>

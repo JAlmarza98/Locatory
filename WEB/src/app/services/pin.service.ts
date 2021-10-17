@@ -23,6 +23,6 @@ export class PinService {
   }
 
   getPinsByCategory(categoryId: string) {
-    return this.http.get(`${url}/pin/${categoryId}`, this.headers);
+    return this.http.get(`${url}/api/pin/${categoryId}`, this.headers);
   }
 }

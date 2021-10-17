@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ category.name }}</h4>
+  <div class="modal-close p-1 mr-2" (click)="close()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <app-share-method-selector
+    *ngIf="urlLink === false"
+    (url)="shareByURL($event)"
+    [shareURL]="shareURL"
+  ></app-share-method-selector>
+
+  <app-share-by-url
+    *ngIf="urlLink === true"
+    [shareURL]="shareURL"
+  ></app-share-by-url>
+</div>

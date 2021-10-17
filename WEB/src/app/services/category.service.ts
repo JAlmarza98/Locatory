@@ -26,17 +26,17 @@ export class CategoryService {
 
   getUserCategories(page?: number) {
     if (page) {
-      return this.http.get(`${url}/categories?page=${page}`, this.headers);
+      return this.http.get(`${url}/api/categories?page=${page}`, this.headers);
     } else {
-      return this.http.get(`${url}/categories`, this.headers);
+      return this.http.get(`${url}/api/categories`, this.headers);
     }
   }
 
   newCategory(category: ICategoria) {
-    return this.http.post(`${url}/categories`, category, this.headers);
+    return this.http.post(`${url}/api/categories`, category, this.headers);
   }
 
   deleteCategory(category: Categoria) {
-    return this.http.delete(`${url}/categories/${category.id}`, this.headers);
+    return this.http.delete(`${url}/api/categories/${category.id}`, this.headers);
   }
 }

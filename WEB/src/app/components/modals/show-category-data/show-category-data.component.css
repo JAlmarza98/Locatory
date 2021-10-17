@@ -21,28 +21,6 @@
   border-radius: 20px;
 }
 
-.modal-header {
-  background-color: #242830;
-  color: white;
-}
-.modal-content {
-  background-color: #242830;
-}
-
-.modal-body {
-  background-color: #242830;
-  color: white;
-}
-
-.modal-close {
-  cursor: pointer;
-}
-
-.modal-footer {
-  background-color: #242830;
-  color: white;
-}
-
 .cat-color {
   width: 100px;
   height: 100px;
@@ -82,4 +60,13 @@
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+.container-delete {
+  position: relative;
+}
+
+.btn-delete {
+  position: absolute;
+  bottom: 0;
 }

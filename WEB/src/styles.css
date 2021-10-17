@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+.modal-header {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-body {
+  background-color: #242830;
+  color: white;
+}
+
+.modal-close {
+  cursor: pointer;
+}
+
+.modal-footer {
+  background-color: #242830;
+  color: white;
+}

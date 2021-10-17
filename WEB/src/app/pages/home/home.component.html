@@ -7,14 +7,38 @@
   ></app-sidebar>
   <div class="page-wrapper">
     <app-notification></app-notification>
+
     <agm-map
+      (mapClick)="newPin($event)"
       [latitude]="lat"
       [longitude]="lng"
       [zoom]="16"
       [disableDefaultUI]="true"
-      [clickableIcons]="false"
     >
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      <ng-container *ngIf="pinsCollection.length !== 0">
+        <agm-marker
+          *ngFor="let marcador of pinsCollection; let i = index"
+          [latitude]="marcador.lat"
+          [longitude]="marcador.lng"
+        >
+          <!-- <agm-info-window>
+          <strong>{{ marcador.titulo }}</strong>
+          <p>{{ marcador.desc }}</p>
+          <div>
+            <button
+              (click)="editarMarcador(marcador)"
+              mat-raised-button
+              color="primary"
+            >
+              Editar
+            </button>
+            <button (click)="borrarMarcador(i)" mat-raised-button color="warn">
+              Borrar
+            </button>
+          </div>
+        </agm-info-window> -->
+        </agm-marker>
+      </ng-container>
     </agm-map>
     <!-- TODO: fix z-index for footer -->
     <!-- <app-footer class="f-nav"></app-footer> -->

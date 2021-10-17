@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CargarPins, ICategoria, IPin, ShowDataModalActions} from 'src/app/models';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PinService} from 'src/app/services';
+import {ShareModalContainerComponent} from 'src/app/components/index';
 
 @Component({
   selector: 'app-show-category-data',
@@ -17,6 +18,7 @@ export class ShowCategoryDataComponent implements OnInit {
   constructor(
     private activeModal: NgbActiveModal,
     private pinService: PinService,
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {
@@ -34,17 +36,34 @@ export class ShowCategoryDataComponent implements OnInit {
         .subscribe((pins: CargarPins) => this.pins = pins.pins);
   }
 
-  close(): void {
+  public close(): void {
     this.activeModal.close();
   }
 
-  editCategory(): void {
+  public editCategory(): void {
     this.actions.action.editCategory = true;
     this.activeModal.close(this.actions);
   }
 
-  deleteCategory(): void {
+  public showPins(): void {
+    this.actions.action.showPins = true;
+    this.activeModal.close(this.actions);
+  }
+
+  public deleteCategory(): void {
     this.actions.action.deleteCategory = true;
     this.activeModal.close(this.actions);
+  }
+
+  public shareCategory(): void {
+    const modalDialog = this.modalService.open(ShareModalContainerComponent, {
+      backdrop: 'static',
+      size: 'sm',
+      keyboard: false,
+      centered: true,
+      scrollable: false,
+    });
+
+    modalDialog.componentInstance.category = this.category;
   }
 }

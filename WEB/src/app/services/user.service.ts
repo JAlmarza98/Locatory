@@ -39,7 +39,7 @@ export class UserService {
   }
 
   validarToken(): Observable<boolean> {
-    return this.http.get(`${url}/auth`, {headers: {Authorization: this.token}}).pipe(
+    return this.http.get(`${url}/api/auth`, {headers: {Authorization: this.token}}).pipe(
         map((resp: any) => {
           const {email, name, role, status, uid} = resp.user;
           this.usuario = new Usuario(name, email, '', status, role, uid);
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${url}/users`, formData).pipe(
+    return this.http.post(`${url}/api/users`, formData).pipe(
         tap((resp: any) => {
           localStorage.setItem('token', resp.token);
         }));
@@ -58,7 +58,7 @@ export class UserService {
 
   actualizarUsuario(formData: UpdateForm) {
     formData = {...formData};
-    return this.http.put(`${url}/users/${this.uid}`, formData, {
+    return this.http.put(`${url}/api/users/${this.uid}`, formData, {
       headers: {
         Authorization: this.token,
       },
@@ -66,21 +66,21 @@ export class UserService {
   }
 
   login(formData: LoginForm) {
-    return this.http.post(`${url}/auth/login`, formData).pipe(
+    return this.http.post(`${url}/api/auth/login`, formData).pipe(
         tap((resp: any) => {
           localStorage.setItem('token', resp.token);
         }));
   }
 
   loginGoogle(idToken: any) {
-    return this.http.post(`${url}/auth/google`, {idToken}).pipe(
+    return this.http.post(`${url}/api/auth/google`, {idToken}).pipe(
         tap((resp: any) => {
           localStorage.setItem('token', resp.token);
         }));
   }
 
   obtenerMiData() {
-    return this.http.get(`${url}/users/me`, {
+    return this.http.get(`${url}/api/users/me`, {
       headers: {
         Authorization: this.token,
       },
