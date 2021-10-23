@@ -40,7 +40,7 @@
               <button class="btn btn-warning">
                 <i class="fas fa-edit"></i>
               </button>
-              <button class="btn btn-danger ml-1">
+              <button class="btn btn-danger ml-1" (click)="deletePin(pin)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
@@ -51,7 +51,7 @@
         <div class="w-100 empty-text text-center">
           <p>
             <i class="fas fa-exclamation-triangle fa-2x mr-1"></i> No hay ningun
-            pin guadado en esta categoría
+            marcador guardado en esta colección
           </p>
         </div>
       </div>
@@ -63,7 +63,7 @@
       <div class="col-6 d-flex flex-column">
         <button class="btn btn-light m-1" (click)="editCategory()">
           <i class="fas fa-edit"></i>
-          Editar categoría
+          Editar colección
         </button>
         <button class="btn btn-light m-1" (click)="showPins()">
           <i class="fas fa-map-signs"></i>
@@ -71,7 +71,7 @@
         </button>
         <button class="btn btn-light m-1" (click)="shareCategory()">
           <i class="fas fa-share-alt"></i>
-          Compartir categoría
+          Compartir coleccion
         </button>
       </div>
       <div class="col-6 container-delete">

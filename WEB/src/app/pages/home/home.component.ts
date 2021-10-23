@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ICategoria, CargarPins, Pin} from 'src/app/models';
-import {PinService} from 'src/app/services';
-import {NotificationService} from 'src/app/services';
+import {ConfirmComponent} from 'src/app/components';
+import {ICategoria, CargarPins, Pin, IPin, ConfirmModalData} from 'src/app/models';
+import {PinService, NotificationService} from 'src/app/services';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private pinService: PinService,
     private notificationService: NotificationService,
+    private modalService: NgbModal,
   ) {}
 
   ngOnInit(): void {}
@@ -29,16 +31,6 @@ export class HomeComponent implements OnInit {
     this.sidebar = event;
   }
 
-  // newPin(event:any) {
-  //   const coords: { lat: number, lng: number } = event.coords;
-  //   console.log(coords);
-
-  //   // const newPin = new Pin('', {_id: '', name: ''}, true, coords.lat, coords.lng, false, '' );
-
-  //   this.pinsCollection.push(newPin);
-  //   console.log(this.pinsCollection);
-  // }
-
   showPinsCollection(category: ICategoria): void {
     this.currentCategory = category;
 
@@ -46,7 +38,6 @@ export class HomeComponent implements OnInit {
         .getPinsByCategory(category.id)
         .subscribe((response: CargarPins) => {
           if (response.total_pins !== 0) {
-            console.log(response);
             this.totalPins = response.total_pins;
             this.pinsCollection = response.pins;
           } else {
@@ -57,5 +48,50 @@ export class HomeComponent implements OnInit {
             );
           }
         });
+  }
+
+  editPin(pin: IPin): void {
+    console.log(pin);
+  }
+
+  deletePin(pin: IPin): void {
+    const deletePinData: ConfirmModalData = {
+      actionBtn: 'Borrar',
+      title: `Eliminar  marcador '${pin.name}'`,
+      icon: 'far fa-trash-alt fa-9x',
+      text: `Se va a eliminar el marcador '${pin.name}' de la categoría, esta acción no se puede deshacer. ¿Desea continuar?`,
+    };
+
+    const modalDialog = this.modalService.open( ConfirmComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
+
+    modalDialog.componentInstance.confirmModalData = deletePinData;
+
+    modalDialog.result.then((result: boolean) => {
+      if (result) {
+        this.pinService.deletePin(pin.id).subscribe((response: CargarPins) => {
+          if (response.total_pins >= 0) {
+            this.notificationService.success('Marcador eliminado', `El marcador '${pin.name}' ha sido eliminado con éxito`);
+
+            this.totalPins = response.total_pins;
+            this.pinsCollection = response.pins;
+
+            if (this.totalPins === 0) {
+              this.notificationService.warning('Colección vacía', 'Has eliminado todos los marcadores de esta colección');
+            }
+          } else {
+            this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+          }
+        });
+      } else {
+        this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+      }
+    });
   }
 }

@@ -11,6 +11,7 @@ export class Pin {
 }
 
 export interface IPin {
+  id?: string;
   name: string;
   category?: PopulateCategory;
   status?: boolean;

@@ -102,30 +102,34 @@ export class SidebarComponent implements OnInit {
     modalDialog.componentInstance.category = category;
 
     modalDialog.result.then((result: ShowDataModalActions) => {
-      if (result.action.deleteCategory) {
-        const categoryToDelete = this.categories.find((category: Categoria) => category.id === result.id);
+      if (result as ShowDataModalActions) {
+        if ((result as ShowDataModalActions).action.deleteCategory) {
+          const categoryToDelete = this.categories.find((category: Categoria) => {
+            category.id === (result as ShowDataModalActions).id;
+          });
 
-        this.categoryService.deleteCategory(categoryToDelete).subscribe((response: CargarCategoria) =>{
-          if ((response as CargarCategoria).total_categories) {
-            this.notificationService.success(
-                'Categoría eliminada',
-                'La categoría ha sido eliminada de su colección con existo',
-                3000);
+          this.categoryService.deleteCategory(categoryToDelete).subscribe((response: CargarCategoria) =>{
+            if ((response as CargarCategoria).total_categories) {
+              this.notificationService.success(
+                  'Categoría eliminada',
+                  'La categoría ha sido eliminada de su colección con existo',
+                  3000);
 
-            this.categories = response.categories;
-            this.totalPages = response.total_pages;
-            this.currentPage = response.page;
-          } else {
-            this.notificationService.error(
-                'Error',
-                'Ha ocurrido un error inesperado y no se ha podido completar la acción, por favor intentelo más tarde',
-                3000);
-          }
-        });
-      } else if (result.action.editCategory) {
-        // TODO: modal de edicion de categoria
-      } else {
-        // TODO: mostrar pines en el mapa
+              this.categories = response.categories;
+              this.totalPages = response.total_pages;
+              this.currentPage = response.page;
+            } else {
+              this.notificationService.error(
+                  'Error',
+                  'Ha ocurrido un error inesperado y no se ha podido completar la acción, por favor intentelo más tarde',
+                  3000);
+            }
+          });
+        } else if ((result as ShowDataModalActions).action.editCategory) {
+          // TODO: modal de edicion de categoria
+        } else if ((result as ShowDataModalActions).action.showPins) {
+          // TODO: mostrar pines en el mapa
+        }
       }
     });
   }

@@ -11,6 +11,7 @@ import {ShareMethodSelectorComponent} from './modals/share-modal-container/share
 import {NewPinComponent} from './modals/new-pin/new-pin.component';
 
 import {AgmCoreModule} from '@agm/core';
+import { ConfirmComponent } from './modals/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {AgmCoreModule} from '@agm/core';
     ShareByUrlComponent,
     ShareMethodSelectorComponent,
     NewPinComponent,
+    ConfirmComponent,
   ],
   imports: [
     CommonModule,

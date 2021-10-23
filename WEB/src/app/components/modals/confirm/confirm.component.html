@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">
+    {{ confirmModalData.title }}
+  </h4>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-4 text-center">
+      <i [class]="confirmModalData.icon"></i>
+    </div>
+    <div class="col-8">
+      <p class="text-center p-5">{{ confirmModalData.text }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-danger" (click)="cancel()">Cancelar</button>
+  <button class="btn btn-light" (click)="accept()">
+    {{ confirmModalData.actionBtn }}
+  </button>
+</div>

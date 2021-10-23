@@ -67,14 +67,30 @@ const putPin = async (req, res) => {
 }
 
 const deletePin = async (req, res) => {
-
     const { id } = req.params;
+    const pinData = await Pin.findById(id)
+
+    const categoryId = pinData.category;
 
     await Pin.findByIdAndUpdate(id, { status: false }, { new: true });
+    const category = await Category.findById(categoryId)
+
+    if (!category.status) {
+        return res.status(400).json({
+            msg: "La categoria selecionada no existe"
+        })
+    }
+
+    const [total_pins, pins] = await Promise.all([
+        Pin.countDocuments({ category: new ObjectId(category.id), status: true }),
+        Pin.find({ status: true, category: new ObjectId(category.id) })
+            .populate('category', 'name', Category)
+    ]);
 
     res.json({
-        msg: 'Pin eliminado con exito'
-    });
+        total_pins,
+        pins
+    })
 }
 
 module.exports = { getPin, postPin, putPin, deletePin }

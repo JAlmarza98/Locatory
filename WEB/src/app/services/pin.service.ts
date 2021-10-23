@@ -30,4 +30,8 @@ export class PinService {
   createNewPin(pinData: newPinForm) {
     return this.http.post(`${url}/api/pin`, pinData, this.headers);
   }
+
+  deletePin(pinId: string) {
+    return this.http.delete(`${url}/api/pin/${pinId}`, this.headers);
+  }
 }

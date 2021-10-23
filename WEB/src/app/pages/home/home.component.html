@@ -14,30 +14,32 @@
       [zoom]="16"
       [disableDefaultUI]="true"
     >
-      <ng-container *ngIf="pinsCollection.length !== 0">
-        <agm-marker
-          *ngFor="let marcador of pinsCollection; let i = index"
-          [latitude]="marcador.lat"
-          [longitude]="marcador.lng"
-        >
-          <!-- <agm-info-window>
-          <strong>{{ marcador.titulo }}</strong>
-          <p>{{ marcador.desc }}</p>
-          <div>
-            <button
-              (click)="editarMarcador(marcador)"
-              mat-raised-button
-              color="primary"
-            >
-              Editar
-            </button>
-            <button (click)="borrarMarcador(i)" mat-raised-button color="warn">
-              Borrar
-            </button>
+      <agm-marker
+        *ngFor="let pin of pinsCollection"
+        [latitude]="pin.lat"
+        [longitude]="pin.long"
+      >
+        <agm-info-window>
+          <div class="row pin-info w-100">
+            <div class="col-12">
+              <strong>{{ pin.name }}</strong>
+            </div>
+
+            <div class="col-12">
+              <p>{{ pin.description }}</p>
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+              <button class="btn btn-outline-secondary" (click)="editPin(pin)">
+                Editar
+              </button>
+              <button class="btn btn-danger ml-3" (click)="deletePin(pin)">
+                Borrar
+              </button>
+            </div>
           </div>
-        </agm-info-window> -->
-        </agm-marker>
-      </ng-container>
+        </agm-info-window>
+      </agm-marker>
     </agm-map>
     <!-- TODO: fix z-index for footer -->
     <!-- <app-footer class="f-nav"></app-footer> -->

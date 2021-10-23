@@ -1,8 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CargarPins, ICategoria, IPin, ShowDataModalActions, newPinForm} from 'src/app/models';
+import {CargarPins, ICategoria, IPin, ShowDataModalActions, newPinForm, ConfirmModalData} from 'src/app/models';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PinService, NotificationService} from 'src/app/services';
-import {NewPinComponent, ShareModalContainerComponent} from 'src/app/components';
+import {ConfirmComponent, NewPinComponent, ShareModalContainerComponent} from 'src/app/components';
 
 @Component({
   selector: 'app-show-category-data',
@@ -54,8 +54,30 @@ export class ShowCategoryDataComponent implements OnInit {
   }
 
   public deleteCategory(): void {
-    this.actions.action.deleteCategory = true;
-    this.activeModal.close(this.actions);
+    const deleteCategoryData: ConfirmModalData = {
+      actionBtn: 'Borrar',
+      title: `Eliminar categoría '${this.category.name}'`,
+      icon: 'far fa-trash-alt fa-9x',
+      text: `Se va a eliminar la colección '${this.category.name}', esta acción no se puede deshacer. ¿Desea continuar?`,
+    };
+
+    const modalDialog = this.modalService.open( ConfirmComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
+
+    modalDialog.componentInstance.confirmModalData = deleteCategoryData;
+
+    modalDialog.result.then((result: boolean) => {
+      if (result) {
+        this.actions.action.deleteCategory = true;
+        this.activeModal.close(this.actions);
+      }
+    });
   }
 
   public addPin(): void {
@@ -94,5 +116,40 @@ export class ShowCategoryDataComponent implements OnInit {
     });
 
     modalDialog.componentInstance.category = this.category;
+  }
+
+  deletePin(pin: IPin): void {
+    const deletePinData: ConfirmModalData = {
+      actionBtn: 'Borrar',
+      title: `Eliminar  marcador '${pin.name}'`,
+      icon: 'far fa-trash-alt fa-9x',
+      text: `Se va a eliminar el marcador '${pin.name}' de la categoría, esta acción no se puede deshacer. ¿Desea continuar?`,
+    };
+
+    const modalDialog = this.modalService.open( ConfirmComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
+
+    modalDialog.componentInstance.confirmModalData = deletePinData;
+
+    modalDialog.result.then((result: boolean) => {
+      if (result) {
+        this.pinService.deletePin(pin.id).subscribe((response: CargarPins) => {
+          if (response.total_pins >= 0) {
+            this.notificationService.success('Marcador eliminado', `El marcador '${pin.name}' ha sido eliminado con éxito`);
+            this.pins = response.pins;
+          } else {
+            this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+          }
+        });
+      } else {
+        this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+      }
+    });
   }
 }

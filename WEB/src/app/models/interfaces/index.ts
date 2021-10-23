@@ -8,3 +8,4 @@ export * from './update-user-form.interface';
 export * from './new-pin-from.interface';
 
 export * from './show-category-modal-actions.interface';
+export * from './confirm-modal.interface';
