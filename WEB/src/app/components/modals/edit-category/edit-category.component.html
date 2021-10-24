@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Actualizar categoría</h4>
+  <div class="modal-close p-1 mr-2" (click)="close()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <form
+    id="updateCategoryForm"
+    autocomplete="off"
+    [formGroup]="updateCategoryForm"
+  >
+    <div class="form-group">
+      <div class="row">
+        <div class="col-12">
+          <label for="name">Nombre</label>
+          <input
+            id="name"
+            class="form-control mb-3"
+            formControlName="name"
+            placeholder="Nombre ..."
+            name="name"
+            type="text"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <label for="description">Descripción</label>
+          <textarea
+            class="form-control mb-3"
+            placeholder="Drescripción..."
+            id="descripcion"
+            name="desciption"
+            formControlName="description"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <label for="color">Color</label>
+          <input
+            id="color"
+            formControlName="color"
+            class="form-control"
+            name="color"
+            type="color"
+          />
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-danger" (click)="close()">Cancelar</button>
+  <button class="btn btn-light" (click)="updateCategoryData()">
+    Actualizar categoría
+  </button>
+</div>

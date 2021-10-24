@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-new-category',
@@ -8,15 +8,17 @@ import {FormBuilder, Validators} from '@angular/forms';
   styleUrls: ['./new-category.component.css'],
 })
 export class NewCategoryComponent implements OnInit {
-  public newCategoryForm = this.fb.group({
-    name: ['', [Validators.required]],
-    description: [''],
-    color: ['', [Validators.required]],
-  });
+  newCategoryForm!: FormGroup;
 
   constructor(private activeModal: NgbActiveModal, private fb: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.newCategoryForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: [''],
+      color: ['', [Validators.required]],
+    });
+  }
 
   close(): void {
     this.activeModal.close();

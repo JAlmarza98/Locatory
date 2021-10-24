@@ -1,14 +1,15 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {CargarCategoria, Categoria, ICategoria, ShowDataModalActions} from 'src/app/models';
-
+import {CargarCategoria,
+  Categoria,
+  ICategoria,
+  ShowDataModalActions,
+  UpdateCategoryData,
+  UpdateCategoryresponse} from 'src/app/models';
+import {NewCategoryComponent, ShowCategoryDataComponent, EditCategoryComponent} from 'src/app/components/modals';
 import {CategoryService, NotificationService} from 'src/app/services';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
-import {
-  NewCategoryComponent,
-  ShowCategoryDataComponent,
-} from 'src/app/components/modals';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,7 +17,7 @@ import {
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-  @Output() showPinsCollection = new EventEmitter<ICategoria>();
+  @Output() showPinsCollection = new EventEmitter<Categoria>();
 
   uid!: string;
   categories!: Categoria[];
@@ -90,7 +91,7 @@ export class SidebarComponent implements OnInit {
         });
   }
 
-  actionCategoryModal(category: ICategoria): void {
+  actionCategoryModal(category: Categoria): void {
     const modalDialog = this.modalService.open(ShowCategoryDataComponent, {
       backdrop: 'static',
       size: 'lg',
@@ -126,15 +127,48 @@ export class SidebarComponent implements OnInit {
             }
           });
         } else if ((result as ShowDataModalActions).action.editCategory) {
-          // TODO: modal de edicion de categoria
+          const modalDialog = this.modalService.open(EditCategoryComponent, {
+            backdrop: 'static',
+            size: 'lg',
+            keyboard: false,
+            centered: true,
+            scrollable: false,
+          });
+
+          modalDialog.componentInstance.category = category;
+          modalDialog.result.then((result: UpdateCategoryData) => {
+            if (result as UpdateCategoryData) {
+              this.categoryService.updateCategory(category.id, result).subscribe( (response: UpdateCategoryresponse) => {
+                if (response as UpdateCategoryresponse) {
+                  const updatedCategoryIndex = this.categories.findIndex( (category) => category.id === response.category.id);
+                  this.categories.splice(updatedCategoryIndex, 1, response.category);
+
+                  this.notificationService.success(
+                      'Colección actualizada',
+                      `La colección '${response.category.name}' ha sido actualizada correctamente`);
+                } else {
+                  this.notificationService.error(
+                      'Error al actualizar',
+                      `La colección '${category.name}' no ha podido ser actualizada correctamente, por favor intentelo más tarde`,
+                      3000,
+                  );
+                }
+              });
+            }
+          });
         } else if ((result as ShowDataModalActions).action.showPins) {
-          // TODO: mostrar pines en el mapa
+          const categoryToShow = this.categories.find( (category: Categoria) => category.id === result.id);
+          if (categoryToShow) {
+            this.showPins(categoryToShow);
+          } else {
+            this.notificationService.error('Error inesperado', 'Ha ocurrido un error inesperado, vuelva a intentarlo mas tarde');
+          }
         }
       }
     });
   }
 
-  showPins(category: ICategoria): void {
+  showPins(category: Categoria): void {
     this.showPinsCollection.emit(category);
   }
 

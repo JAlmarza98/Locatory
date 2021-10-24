@@ -12,6 +12,7 @@ import {NewPinComponent} from './modals/new-pin/new-pin.component';
 
 import {AgmCoreModule} from '@agm/core';
 import { ConfirmComponent } from './modals/confirm/confirm.component';
+import { EditCategoryComponent } from './modals/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ConfirmComponent } from './modals/confirm/confirm.component';
     ShareMethodSelectorComponent,
     NewPinComponent,
     ConfirmComponent,
+    EditCategoryComponent,
   ],
   imports: [
     CommonModule,
