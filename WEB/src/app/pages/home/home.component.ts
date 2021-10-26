@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ConfirmComponent} from 'src/app/components';
-import {ICategoria, CargarPins, Pin, IPin, ConfirmModalData} from 'src/app/models';
+import {ConfirmComponent, EditPinsComponent} from 'src/app/components';
+import {ICategoria, CargarPins, IPin, ConfirmModalData} from 'src/app/models';
 import {PinService, NotificationService} from 'src/app/services';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -10,7 +10,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  pinsCollection: Pin[] = [];
+  pinsCollection: IPin[] = [];
 
   lat = 40.26923811554885;
   lng = -3.921616256343138;
@@ -50,8 +50,40 @@ export class HomeComponent implements OnInit {
         });
   }
 
-  editPin(pin: IPin): void {
-    console.log(pin);
+  editPin(selectedPin: IPin): void {
+    const modalDialog = this.modalService.open(
+        EditPinsComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
+
+    modalDialog.componentInstance.pinToEdit = selectedPin;
+
+    modalDialog.result.then((result: any) => {
+      if (result as IPin) {
+        this.pinService.editPin(selectedPin.id, result).subscribe((response: IPin) => {
+          const pinIndex = this.pinsCollection.findIndex((pin) => pin.id === selectedPin.id);
+
+          this.pinsCollection[pinIndex].description = response.description;
+          this.pinsCollection[pinIndex].name = response.name;
+          this.pinsCollection[pinIndex].finished = response.finished;
+
+          this.notificationService.success('Marcador actualizado', 'El marcador ha sido actualizado correctamente');
+        }, (err) => {
+          this.notificationService.error(
+              'Error al actualizar',
+              'No se ha podido actualizar el marcador correctamente, por favor intentelo más tarde');
+        });
+      } else {
+        this.notificationService.error(
+            'Error al actualizar',
+            'No se ha podido actualizar el marcador correctamente, por favor intentelo más tarde');
+      }
+    });
   }
 
   deletePin(pin: IPin): void {

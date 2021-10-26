@@ -5,6 +5,7 @@ export * from './show-category-data/show-category-data.component';
 
 // Modals for CRUD operations on pins
 export * from './new-pin/new-pin.component';
+export * from './edit-pins/edit-pins.component';
 
 // Modals for generic operations
 export * from './confirm/confirm.component';

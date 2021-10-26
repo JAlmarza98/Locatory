@@ -32,12 +32,12 @@
           <tr *ngFor="let pin of pins">
             <td>{{ pin.name }}</td>
             <td colspan="2">{{ pin.description }}</td>
-            <td *ngIf="!pin.finish"></td>
-            <td *ngIf="pin.finish">
+            <td *ngIf="!pin.finished"></td>
+            <td *ngIf="pin.finished" class="text-center">
               <i class="fas fa-check"></i>
             </td>
             <td class="d-flex">
-              <button class="btn btn-warning">
+              <button class="btn btn-warning" (click)="editPin(pin)">
                 <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-danger ml-1" (click)="deletePin(pin)">

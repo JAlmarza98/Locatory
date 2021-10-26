@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
-import {newPinForm} from 'src/app/models';
+import {IPin, newPinForm} from 'src/app/models';
 
 const url = environment.base_url;
 
@@ -33,5 +33,9 @@ export class PinService {
 
   deletePin(pinId: string) {
     return this.http.delete(`${url}/api/pin/${pinId}`, this.headers);
+  }
+
+  editPin(pinId: string, pinData: IPin) {
+    return this.http.put(`${url}/api/pin/${pinId}`, pinData, this.headers);
   }
 }

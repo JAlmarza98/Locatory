@@ -58,12 +58,11 @@ const putPin = async (req, res) => {
     const { id } = req.params;
     const { _id, status, category, lat, long, ...others } = req.body;
 
-    const pin = await Pin.findByIdAndUpdate(id, others, { new: true });
+    await Pin.findByIdAndUpdate(id, others, { new: true });
 
-    res.json({
-        msg: 'Cambios realizados con exito',
-        pin
-    });
+    const pin = await Pin.findById(id);
+
+    res.json(pin);
 }
 
 const deletePin = async (req, res) => {

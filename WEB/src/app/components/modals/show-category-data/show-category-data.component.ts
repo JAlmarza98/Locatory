@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {CargarPins, ICategoria, IPin, ShowDataModalActions, newPinForm, ConfirmModalData} from 'src/app/models';
 import {NgbActiveModal, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {PinService, NotificationService} from 'src/app/services';
-import {ConfirmComponent, NewPinComponent, ShareModalContainerComponent} from 'src/app/components';
+import {ConfirmComponent, EditPinsComponent, NewPinComponent, ShareModalContainerComponent} from 'src/app/components';
 
 @Component({
   selector: 'app-show-category-data',
@@ -149,6 +149,39 @@ export class ShowCategoryDataComponent implements OnInit {
         });
       } else {
         this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+      }
+    });
+  }
+
+  editPin(selectedPin: IPin): void {
+    const modalDialog = this.modalService.open(
+        EditPinsComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
+
+    modalDialog.componentInstance.pinToEdit = selectedPin;
+
+    modalDialog.result.then((result: any) => {
+      if (result as IPin) {
+        this.pinService.editPin(selectedPin.id, result).subscribe((response: IPin) => {
+          const pinIndex = this.pins.findIndex((pin) => pin.id === selectedPin.id);
+
+          this.pins[pinIndex].description = response.description;
+          this.pins[pinIndex].name = response.name;
+          this.pins[pinIndex].finished = response.finished;
+
+          this.notificationService.success('Marcador actualizado', 'El marcador ha sido actualizado correctamente');
+          console.log(this.pins);
+        }, (err) => {
+          this.notificationService.error(
+              'Error al actualizar',
+              'No se ha podido actualizar el marcador correctamente, por favor intentelo más tarde');
+        });
       }
     });
   }

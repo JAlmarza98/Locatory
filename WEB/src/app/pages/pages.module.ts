@@ -9,9 +9,10 @@ import {SharedModule} from '../shared/shared.module';
 // Componentes propios
 import {HomeComponent} from './home/home.component';
 import {ComponentsModule} from '../components/components.module';
+import { ShareComponent } from './share/share.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, ShareComponent],
   imports: [
     CommonModule,
     AppRoutingModule,

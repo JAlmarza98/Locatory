@@ -1,0 +1,83 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Actualizar marcador</h4>
+  <div class="modal-close p-1 mr-2" (click)="close()">
+    <i class="fas fa-times"></i>
+  </div>
+</div>
+<div class="modal-body">
+  <form id="updatePinForm" autocomplete="off" [formGroup]="updatePinForm">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-10">
+          <label for="name">Nombre</label>
+          <input
+            id="name"
+            class="form-control mb-3"
+            formControlName="name"
+            placeholder="Nombre ..."
+            name="name"
+            type="text"
+          />
+        </div>
+        <!-- TODO: cambiar estilos del terminado -->
+        <div class="col-2">
+          <label for="name">Terminado</label>
+          <input
+            id="finished"
+            class="form-check-input mt-5 mr-5"
+            formControlName="finished"
+            name="finished"
+            type="checkbox"
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="lat">Latitud</label>
+          <input
+            id="lat"
+            class="form-control mb-3"
+            formControlName="lat"
+            placeholder="Latitud ..."
+            name="lat"
+            type="text"
+            readonly
+          />
+        </div>
+        <div class="col-6">
+          <label for="lat">Longitud</label>
+          <input
+            id="long"
+            class="form-control mb-3"
+            formControlName="long"
+            placeholder="Longitud ..."
+            name="long"
+            type="text"
+            readonly
+          />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <label for="description">Descripción</label>
+          <textarea
+            class="form-control mb-3"
+            placeholder="Drescripción..."
+            id="descripcion"
+            name="desciption"
+            formControlName="description"
+          ></textarea>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button class="btn btn-outline-danger" (click)="close()">Cancelar</button>
+  <button class="btn btn-light" (click)="updatePinData()">
+    Actualizar marcador
+  </button>
+</div>
