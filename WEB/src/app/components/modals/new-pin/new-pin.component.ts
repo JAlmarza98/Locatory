@@ -20,6 +20,7 @@ export class NewPinComponent implements OnInit {
     lng: null,
   }
 
+  // TODO: añadir barra de busqueda por direccion
   public newPinForm!: FormGroup;
 
   finalNewPinData: newPinForm = {

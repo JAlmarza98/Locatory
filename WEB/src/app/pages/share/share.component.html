@@ -1,1 +1,48 @@
-<p>share works!</p>
+<div id="main-wrapper">
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid d-flex">
+      <h1
+        class="navbar-brand text-center fs-3 ml-5 ps-3 cursor-pointer"
+        [routerLink]="['/']"
+      >
+        L<i class="fas fa-map-marker-alt text-danger fs-2"></i>CATORY
+      </h1>
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <app-notification></app-notification>
+    <app-share-category-data
+      [category]="sharedCategory"
+      [totalPins]="totalPins"
+    ></app-share-category-data>
+
+    <agm-map
+      [latitude]="lat"
+      [longitude]="lng"
+      [zoom]="zoom"
+      [disableDefaultUI]="true"
+    >
+      <agm-marker
+        *ngFor="let pin of pinsCollection"
+        [latitude]="pin.lat"
+        [longitude]="pin.long"
+      >
+        <agm-info-window>
+          <div class="row pin-info w-100">
+            <div class="col-12 fs-4">
+              <strong>{{ pin.name }}</strong>
+            </div>
+
+            <div class="col-12">
+              <p>{{ pin.description }}</p>
+            </div>
+          </div>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+    <app-footer class="f-nav"></app-footer>
+  </div>
+</div>

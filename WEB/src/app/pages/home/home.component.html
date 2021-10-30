@@ -11,7 +11,7 @@
     <agm-map
       [latitude]="lat"
       [longitude]="lng"
-      [zoom]="16"
+      [zoom]="zoom"
       [disableDefaultUI]="true"
     >
       <agm-marker
@@ -21,12 +21,28 @@
       >
         <agm-info-window>
           <div class="row pin-info w-100">
-            <div class="col-12 fs-4">
+            <div class="col-12 fs-3">
               <strong>{{ pin.name }}</strong>
             </div>
 
             <div class="col-12">
               <p>{{ pin.description }}</p>
+            </div>
+
+            <div class="col-12 d-flex">
+              <span class="mr-2">
+                <i
+                  class="far fa-check-square fa-2x"
+                  *ngIf="pin.finished"
+                  (click)="changePinStatus(pin)"
+                ></i>
+                <i
+                  class="far fa-square fa-2x"
+                  *ngIf="!pin.finished"
+                  (click)="changePinStatus(pin)"
+                ></i>
+              </span>
+              <p class="fs-5">Terminado</p>
             </div>
 
             <div class="col-12 d-flex justify-content-end">

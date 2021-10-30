@@ -3,15 +3,20 @@ const { check } = require('express-validator');
 
 const { fieldsValidator, jwtValidator } = require('../middlewares');
 
-const { categoryID, userID } = require('../helpers');
+const { categoryID } = require('../helpers');
 
-const { getCategory, postCategory, putCategory, deleteCategory } = require('../controllers/category.controller')
+const { getCategory, getOneCategory, postCategory, putCategory, deleteCategory } = require('../controllers/category.controller')
 
 const router = Router();
 
 router.get('/', [
     jwtValidator
 ], getCategory);
+
+router.get('/:id', [
+    check('id', 'No es un ID valido').isMongoId(),
+    check('id').custom(categoryID),
+],  getOneCategory);
 
 router.post('/', [
     jwtValidator,

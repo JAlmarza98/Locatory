@@ -1,3 +1,9 @@
+/* Gobal */
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 /* Modals */
 
 .modal-header {

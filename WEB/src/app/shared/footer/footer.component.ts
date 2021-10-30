@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +11,8 @@ export class FooterComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    const date = new Date();
-    this.year = date.getFullYear();
+    // const date = new Date();
+    // this.year = date.getFullYear();
+    this.year = 2021;
   }
 }

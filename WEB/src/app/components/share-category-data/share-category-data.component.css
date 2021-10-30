@@ -1,0 +1,20 @@
+.share {
+  position: fixed;
+  top: 8vh;
+  right: 0;
+  z-index: 10000 !important;
+  min-width: 300px;
+  max-width: 300px;
+  margin: 15px;
+  border-radius: 5px;
+  color: #fff;
+  overflow: hidden;
+  background-color: #24283070;
+}
+
+.color {
+  width: 25px;
+  height: 25px;
+  border-radius: 100%;
+  border: 1px solid white;
+}

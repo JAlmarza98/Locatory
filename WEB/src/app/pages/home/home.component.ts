@@ -10,13 +10,14 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  pinsCollection: IPin[] = [];
+  lat!: number;
+  lng!: number;
+  zoom = 2;
 
-  lat = 40.26923811554885;
-  lng = -3.921616256343138;
   sidebar!: boolean;
 
   currentCategory!: ICategoria;
+  pinsCollection: IPin[] = [];
   totalPins!: number;
 
   constructor(
@@ -40,6 +41,17 @@ export class HomeComponent implements OnInit {
           if (response.total_pins !== 0) {
             this.totalPins = response.total_pins;
             this.pinsCollection = response.pins;
+
+            let medLat = 0;
+            let medLong = 0;
+            this.pinsCollection.forEach((pin: IPin) => {
+              medLat = medLat + parseFloat(pin.lat);
+              medLong = medLong + parseFloat(pin.long);
+            });
+
+            this.lat = medLat/this.totalPins;
+            this.lng = medLong/this.totalPins;
+            this.zoom = 16;
           } else {
             this.notificationService.info(
                 'No hay marcadores',
@@ -78,10 +90,6 @@ export class HomeComponent implements OnInit {
               'Error al actualizar',
               'No se ha podido actualizar el marcador correctamente, por favor intentelo más tarde');
         });
-      } else {
-        this.notificationService.error(
-            'Error al actualizar',
-            'No se ha podido actualizar el marcador correctamente, por favor intentelo más tarde');
       }
     });
   }
@@ -123,6 +131,30 @@ export class HomeComponent implements OnInit {
         });
       } else {
         this.notificationService.error('Error', `El marcador '${pin.name}' no ha podido ser eliminado, intentelo más tarde`);
+      }
+    });
+  }
+
+  changePinStatus(pin: IPin): void {
+    console.log(pin);
+
+    this.pinService.changePinStatus(pin).subscribe( (response: IPin) => {
+      if (response as IPin) {
+        const pinIndex = this.pinsCollection.findIndex( (pin: IPin)=> pin.id === response.id);
+        this.pinsCollection[pinIndex].finished = response.finished;
+        if (response.finished) {
+          this.notificationService.success(
+              'Marcador Actualizado',
+              `El marcador '${pin.name}' ha sido marcardo como terminado`);
+        } else {
+          this.notificationService.success(
+              'Marcador Actualizado',
+              `El marcador '${pin.name}' ha sido marcardo como no terminado`);
+        }
+      } else {
+        this.notificationService.error(
+            'Error',
+            `El marcador '${pin.name}' no ha podido marcarse como terminado, intentelo más tarde`);
       }
     });
   }

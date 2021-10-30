@@ -51,6 +51,14 @@ const getCategory = async (req, res) => {
 
 }
 
+const getOneCategory = async (req, res)=> {
+    const { id } = req.params;
+
+    const category = await Category.findById(id);
+
+    res.json( category );
+}
+
 const postCategory = async (req, res) => {
 
     const resPerPage = 14;
@@ -132,4 +140,4 @@ const deleteCategory = async (req, res) => {
 }
 
 
-module.exports = { getCategory, postCategory, putCategory, deleteCategory }
+module.exports = { getCategory, getOneCategory, postCategory, putCategory, deleteCategory }

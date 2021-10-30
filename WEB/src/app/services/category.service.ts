@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {environment} from 'src/environments/environment';
 import {Categoria, ICategoria, UpdateCategoryData} from 'src/app/models';
+import {Observable} from 'rxjs';
 
 const url = environment.base_url;
 
@@ -30,6 +31,10 @@ export class CategoryService {
     } else {
       return this.http.get(`${url}/api/categories`, this.headers);
     }
+  }
+
+  getOneCategory(categoryId: string): Observable<ICategoria> {
+    return this.http.get<ICategoria>(`${url}/api/categories/${categoryId}`);
   }
 
   newCategory(category: ICategoria) {

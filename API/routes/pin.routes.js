@@ -5,7 +5,7 @@ const { fieldsValidator, jwtValidator } = require('../middlewares');
 
 const { categoryID, pinID } = require('../helpers');
 
-const { getPin, postPin, putPin, deletePin } = require('../controllers/pin.controller')
+const { getPin, postPin, putPin, changePinStatus, deletePin } = require('../controllers/pin.controller')
 
 const router = Router();
 
@@ -30,6 +30,11 @@ router.put('/:id', [
     check('id').custom(pinID),
     fieldsValidator
 ], putPin);
+router.put('/:id/status', [
+    jwtValidator,
+    check('id', 'No es un ID valido').isMongoId(),
+    check('id').custom(pinID)
+], changePinStatus);
 
 router.delete('/:id', [
     jwtValidator,

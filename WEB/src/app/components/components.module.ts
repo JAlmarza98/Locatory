@@ -11,9 +11,10 @@ import {ShareMethodSelectorComponent} from './modals/share-modal-container/share
 import {NewPinComponent} from './modals/new-pin/new-pin.component';
 
 import {AgmCoreModule} from '@agm/core';
-import { ConfirmComponent } from './modals/confirm/confirm.component';
-import { EditCategoryComponent } from './modals/edit-category/edit-category.component';
-import { EditPinsComponent } from './modals/edit-pins/edit-pins.component';
+import {ConfirmComponent} from './modals/confirm/confirm.component';
+import {EditCategoryComponent} from './modals/edit-category/edit-category.component';
+import {EditPinsComponent} from './modals/edit-pins/edit-pins.component';
+import {ShareCategoryDataComponent} from './share-category-data/share-category-data.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EditPinsComponent } from './modals/edit-pins/edit-pins.component';
     ConfirmComponent,
     EditCategoryComponent,
     EditPinsComponent,
+    ShareCategoryDataComponent,
   ],
   imports: [
     CommonModule,
@@ -40,6 +42,14 @@ import { EditPinsComponent } from './modals/edit-pins/edit-pins.component';
     NewCategoryComponent,
     ShowCategoryDataComponent,
     NotificationComponent,
+    ShareModalContainerComponent,
+    ShareByUrlComponent,
+    ShareMethodSelectorComponent,
+    NewPinComponent,
+    ConfirmComponent,
+    EditCategoryComponent,
+    EditPinsComponent,
+    ShareCategoryDataComponent,
   ],
 })
 export class ComponentsModule {}

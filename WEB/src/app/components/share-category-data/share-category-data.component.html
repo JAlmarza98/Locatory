@@ -1,0 +1,18 @@
+<div class="share p-4">
+  <div class="row">
+    <div class="col-2" *ngIf="category">
+      <!-- TODO: fix category.color error -->
+      <div
+        class="color"
+        [ngStyle]="{ 'background-color': category.color }"
+      ></div>
+    </div>
+    <div class="col-10">
+      <h5>{{ category.name }}</h5>
+    </div>
+    <div class="col-12">
+      <p>{{ category.description }}</p>
+    </div>
+    <div class="col-12">Nº de marcadores: {{ totalPins }}</div>
+  </div>
+</div>

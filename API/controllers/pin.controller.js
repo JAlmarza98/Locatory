@@ -65,6 +65,15 @@ const putPin = async (req, res) => {
     res.json(pin);
 }
 
+const changePinStatus = async (req, res) => {
+    const { id } = req.params;
+
+    const pin = await Pin.findById(id);
+    const newPin = await Pin.findByIdAndUpdate(id, { finished: !pin.finished }, { new: true });
+
+    res.json(newPin);
+}
+
 const deletePin = async (req, res) => {
     const { id } = req.params;
     const pinData = await Pin.findById(id)
@@ -92,4 +101,4 @@ const deletePin = async (req, res) => {
     })
 }
 
-module.exports = { getPin, postPin, putPin, deletePin }
+module.exports = { getPin, postPin, putPin, changePinStatus, deletePin }

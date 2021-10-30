@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from 'src/environments/environment';
-import {IPin, newPinForm} from 'src/app/models';
+import {CargarPins, IPin, newPinForm} from 'src/app/models';
+import {Observable} from 'rxjs';
 
 const url = environment.base_url;
 
@@ -23,8 +24,8 @@ export class PinService {
     };
   }
 
-  getPinsByCategory(categoryId: string) {
-    return this.http.get(`${url}/api/pin/${categoryId}`, this.headers);
+  getPinsByCategory(categoryId: string):Observable<CargarPins> {
+    return this.http.get<CargarPins>(`${url}/api/pin/${categoryId}`, this.headers);
   }
 
   createNewPin(pinData: newPinForm) {
@@ -37,5 +38,9 @@ export class PinService {
 
   editPin(pinId: string, pinData: IPin) {
     return this.http.put(`${url}/api/pin/${pinId}`, pinData, this.headers);
+  }
+
+  changePinStatus(pin: IPin) {
+    return this.http.put(`${url}/api/pin/${pin.id}/status`, {}, this.headers);
   }
 }
