@@ -6,5 +6,6 @@ export class Usuario {
     public status?: boolean,
     public role?: string,
     public uid?: string,
+    public _id?: string,
   ) {}
 }

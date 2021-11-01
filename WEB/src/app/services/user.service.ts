@@ -72,15 +72,24 @@ export class UserService {
         }));
   }
 
-  loginGoogle(idToken: any) {
-    return this.http.post(`${url}/api/auth/google`, {idToken}).pipe(
-        tap((resp: any) => {
-          localStorage.setItem('token', resp.token);
-        }));
-  }
-
   obtenerMiData() {
     return this.http.get(`${url}/api/users/me`, {
+      headers: {
+        Authorization: this.token,
+      },
+    });
+  }
+
+  updateUserData(data:any, userId:string) {
+    return this.http.put(`${url}/api/users/${userId}`, data, {
+      headers: {
+        Authorization: this.token,
+      },
+    });
+  }
+
+  deleteAccount(userId:string) {
+    return this.http.delete(`${url}/api/users/${userId}`, {
       headers: {
         Authorization: this.token,
       },

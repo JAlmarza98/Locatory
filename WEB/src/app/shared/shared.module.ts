@@ -12,10 +12,11 @@ import {ComponentsModule} from '../components/components.module';
 import {HeaderComponent} from './header/header.component';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {FooterComponent} from './footer/footer.component';
+import {FooterHomeComponent} from './footer-home/footer-home.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SidebarComponent, FooterComponent],
-  exports: [HeaderComponent, SidebarComponent, FooterComponent],
+  declarations: [HeaderComponent, SidebarComponent, FooterComponent, FooterHomeComponent],
+  exports: [HeaderComponent, SidebarComponent, FooterComponent, FooterHomeComponent],
   imports: [CommonModule, NgbModule, ComponentsModule, RouterModule],
 })
 export class SharedModule {}

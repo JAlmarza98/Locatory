@@ -14,52 +14,67 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        TODO:finalizar formulario de actualizacion de datos
         <form
-          id="userUpdateForm"
+          class="form-horizontal form-material"
+          id="registerform"
           autocomplete="off"
           [formGroup]="userUpdateForm"
+          (ngSubmit)="updateUserData()"
         >
-          <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
-            <input
-              id="name"
-              class="form-control mb-3"
-              formControlName="name"
-              placeholder="Nombre ..."
-              name="name"
-              type="name"
-            />
+          <h3 class="box-title m-t-40 m-b-0">Modifica tus datos de usuario</h3>
+          <div class="form-group m-t-40 mb-3">
+            <div class="col-xs-12">
+              <input
+                class="form-control"
+                type="text"
+                formControlName="name"
+                placeholder="Name"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input
-              id="email"
-              class="form-control mb-3"
-              formControlName="email"
-              placeholder="Email ..."
-              name="email"
-              type="email"
-            />
+          <div class="form-group m-t-40 mb-3">
+            <div class="col-xs-12">
+              <input
+                class="form-control"
+                type="email"
+                formControlName="email"
+                placeholder="Email"
+              />
+            </div>
           </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              id="password"
-              class="form-control mb-3"
-              formControlName="password"
-              placeholder="password ..."
-              name="password"
-              type="password"
-            />
+          <div class="form-group mb-3">
+            <div class="col-xs-12">
+              <input
+                class="form-control"
+                type="password"
+                formControlName="password"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+
+          <div class="form-group text-center m-t-20 mb-3">
+            <div class="col-xs-12">
+              <button
+                class="
+                  btn btn-primary btn-lg btn-block
+                  text-uppercase
+                  btn-rounded
+                "
+                type="submit"
+              >
+                Actualizar datos
+              </button>
+            </div>
           </div>
         </form>
-        <button type="button" class="btn btn-light mt-3 float-end">
-          Actualizar datos
-        </button>
       </div>
       <div class="col-12">
-        <button type="button" class="btn btn-outline-danger mt-3 float-end">
+        <button
+          type="button"
+          class="btn btn-outline-danger mt-3 float-end"
+          (click)="deleteAccount()"
+        >
           Eliminar cuenta
         </button>
       </div>

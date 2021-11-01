@@ -1,5 +1,6 @@
 <div id="main-wrapper">
   <app-header (openCategory)="showSidebar($event)"></app-header>
+  <app-footer-home></app-footer-home>
   <app-sidebar
     class="float-end assidenav"
     *ngIf="sidebar"
@@ -57,7 +58,5 @@
         </agm-info-window>
       </agm-marker>
     </agm-map>
-    <!-- TODO: fix z-index for footer -->
-    <!-- <app-footer class="f-nav"></app-footer> -->
   </div>
 </div>

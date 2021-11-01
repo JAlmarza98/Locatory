@@ -76,6 +76,8 @@ export class SidebarComponent implements OnInit {
                     this.categories = response.categories;
                     this.totalPages = response.total_pages;
                     this.currentPage = response.page;
+                    this._hasPrev();
+                    this._hasNext();
 
                     this.notificationService.success(
                         'Categoría añadida',
@@ -121,6 +123,8 @@ export class SidebarComponent implements OnInit {
               this.categories = response.categories;
               this.totalPages = response.total_pages;
               this.currentPage = response.page;
+              this._hasPrev();
+              this._hasNext();
             } else {
               this.notificationService.error(
                   'Error',

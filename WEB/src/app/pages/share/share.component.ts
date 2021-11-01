@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {forkJoin} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ICategoria, IPin} from 'src/app/models';
 import {CategoryService, NotificationService, PinService} from 'src/app/services';
 
@@ -23,20 +22,23 @@ export class ShareComponent implements OnInit {
     private route: ActivatedRoute,
     private categoryService: CategoryService,
     private pinService: PinService,
-    private notificationService: NotificationService) { }
+    private notificationService: NotificationService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.categoryId = this.route.snapshot.paramMap.get('categoryId');
 
-    forkJoin({
-      getCategoryData: this.categoryService.getOneCategory(this.categoryId),
-      getPinList: this.pinService.getPinsByCategory(this.categoryId),
-    }).subscribe(({getCategoryData, getPinList}) => {
-      this.sharedCategory = getCategoryData;
-      this.pinsCollection = getPinList.pins;
-      this.totalPins = getPinList.total_pins;
-
-      this.showPinsControll();
+    this.categoryService.getOneCategory(this.categoryId).subscribe((response: ICategoria) => {
+      if (response as ICategoria) {
+        this.sharedCategory = response;
+        this.pinService.getPinsByCategory(this.categoryId).subscribe((response: any) => {
+          this.pinsCollection = response.pins;
+          this.totalPins = response.total_pins;
+          this.showPinsControll();
+        });
+      } else {
+        this.router.navigateByUrl('/home');
+      }
     });
   }
 
