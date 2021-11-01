@@ -6,12 +6,25 @@
 </div>
 <div class="modal-body">
   <div class="row">
+    <div class="col-12 d-flex mb-3">
+      <input
+        id="search"
+        class="form-control"
+        placeholder="Buscar ..."
+        [(ngModel)]="search"
+        name="search"
+        type="text"
+      />
+      <button class="btn btn-light ml-2" (click)="searchGeoLocation()">
+        <i class="fas fa-search-location"></i>
+      </button>
+    </div>
     <div class="col-12">
       <agm-map
         (mapClick)="setPin($event)"
-        [latitude]="lat"
-        [longitude]="lng"
-        [zoom]="16"
+        [latitude]="coords.lat"
+        [longitude]="coords.lng"
+        [zoom]="zoom"
         [disableDefaultUI]="true"
       >
         <agm-marker

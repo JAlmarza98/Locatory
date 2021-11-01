@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid d-flex">
+    <h1
+      class="navbar-brand text-center fs-3 ml-5 ps-3 cursor-pointer"
+      [routerLink]="['/home']"
+    >
+      L<i class="fas fa-map-marker-alt text-danger fs-2"></i>CATORY
+    </h1>
+
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+  </div>
+</nav>
+<div class="contenedor">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        TODO:finalizar formulario de actualizacion de datos
+        <form
+          id="userUpdateForm"
+          autocomplete="off"
+          [formGroup]="userUpdateForm"
+        >
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <input
+              id="name"
+              class="form-control mb-3"
+              formControlName="name"
+              placeholder="Nombre ..."
+              name="name"
+              type="name"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              class="form-control mb-3"
+              formControlName="email"
+              placeholder="Email ..."
+              name="email"
+              type="email"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              id="password"
+              class="form-control mb-3"
+              formControlName="password"
+              placeholder="password ..."
+              name="password"
+              type="password"
+            />
+          </div>
+        </form>
+        <button type="button" class="btn btn-light mt-3 float-end">
+          Actualizar datos
+        </button>
+      </div>
+      <div class="col-12">
+        <button type="button" class="btn btn-outline-danger mt-3 float-end">
+          Eliminar cuenta
+        </button>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

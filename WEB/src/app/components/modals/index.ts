@@ -1,7 +1,7 @@
 // Modals for CRUD operations on categories
 export * from './new-category/new-category.component';
 export * from './edit-category/edit-category.component';
-export * from './show-category-data/show-category-data.component';
+// export * from './show-category-data/show-category-data.component';
 
 // Modals for CRUD operations on pins
 export * from './new-pin/new-pin.component';

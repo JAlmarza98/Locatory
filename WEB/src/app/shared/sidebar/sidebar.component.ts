@@ -5,8 +5,9 @@ import {CargarCategoria,
   ShowDataModalActions,
   UpdateCategoryData,
   UpdateCategoryresponse} from 'src/app/models';
-import {NewCategoryComponent, ShowCategoryDataComponent, EditCategoryComponent} from 'src/app/components/modals';
+import {NewCategoryComponent, EditCategoryComponent} from 'src/app/components/modals';
 import {CategoryService, NotificationService} from 'src/app/services';
+import {ShowCategoryDataComponent} from 'src/app/components/modals/show-category-data/show-category-data.component';
 
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -92,13 +93,14 @@ export class SidebarComponent implements OnInit {
   }
 
   actionCategoryModal(category: Categoria): void {
-    const modalDialog = this.modalService.open(ShowCategoryDataComponent, {
-      backdrop: 'static',
-      size: 'lg',
-      keyboard: false,
-      centered: true,
-      scrollable: false,
-    });
+    const modalDialog = this.modalService.open(ShowCategoryDataComponent,
+        {
+          backdrop: 'static',
+          size: 'lg',
+          keyboard: false,
+          centered: true,
+          scrollable: false,
+        });
 
     modalDialog.componentInstance.category = category;
 

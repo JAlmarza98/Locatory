@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('/');
         },
         (err) => {
-          console.log(err);
           Swal.fire(
               'Error',
               'El correo o la contraseña introducidas no son correctas',

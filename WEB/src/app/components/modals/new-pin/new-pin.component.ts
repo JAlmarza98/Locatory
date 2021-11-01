@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ICategoria, newPinForm} from 'src/app/models';
+import {GeoLocationResponse, ICategoria, newPinForm} from 'src/app/models';
 
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {GeoLocationService, NotificationService} from 'src/app/services';
 
 @Component({
   selector: 'app-new-pin',
@@ -12,15 +13,13 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 export class NewPinComponent implements OnInit {
   @Input() category: ICategoria;
 
-  lat = 40.26923811554885;
-  lng = -3.921616256343138;
-
+  zoom = 2;
   coords = {
     lat: null,
     lng: null,
   }
 
-  // TODO: añadir barra de busqueda por direccion
+  search!:string;
   public newPinForm!: FormGroup;
 
   finalNewPinData: newPinForm = {
@@ -30,7 +29,11 @@ export class NewPinComponent implements OnInit {
     long: '',
   };
 
-  constructor(private activeModal: NgbActiveModal, private fb: FormBuilder) { }
+  constructor(
+    private activeModal: NgbActiveModal,
+    private fb: FormBuilder,
+    private notificationService: NotificationService,
+    private geoLocationService: GeoLocationService) { }
 
   ngOnInit(): void {
     this.newPinForm = this.fb.group({
@@ -51,7 +54,6 @@ export class NewPinComponent implements OnInit {
       this.finalNewPinData.description = this.newPinForm.value.description;
     }
 
-    // TODO: capar el envio de formulario cuando no sea valido
     this.activeModal.close(this.finalNewPinData);
   }
 
@@ -60,6 +62,21 @@ export class NewPinComponent implements OnInit {
 
     this.finalNewPinData.lat = event.coords.lat.toString();
     this.finalNewPinData.long = event.coords.lng.toString();
+  }
+
+  searchGeoLocation(): void {
+    this.geoLocationService.searchDirection(this.search).subscribe((response: GeoLocationResponse) => {
+      if (response.status === 'OK') {
+        this.coords = response.results[0].geometry.location;
+        this.finalNewPinData.lat = this.coords.lat.toString();
+        this.finalNewPinData.long = this.coords.lng.toString();
+        this.zoom = 16;
+      } else {
+        this.notificationService.error(
+            'Error en API',
+            'Actualmente la API encargade de la geolocalización no esta funcionando correctamente');
+      }
+    });
   }
 }
 
