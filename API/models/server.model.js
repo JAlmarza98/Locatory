@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 const { dbConnection } = require('../database/config');
 
@@ -47,6 +48,9 @@ class Server {
         this.app.use(this.authPath, require('../routes/auth.routes'));
         this.app.use(this.categoryPath, require('../routes/category.routes'));
         this.app.use(this.pinPath, require('../routes/pin.routes'));
+        this.app.use('*',(req, res) => {
+            res.sendFile(path.resolve('public/index.html'));
+        });
     }
 
     listen() {
